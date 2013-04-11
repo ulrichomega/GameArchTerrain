@@ -43,6 +43,7 @@ local.properties
 
 # Build results
 [Dd]ebug/
+Debug/
 [Rr]elease/
 *_i.c
 *_p.c
@@ -161,3 +162,6 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+#Visual Studio debug folder
+Debug/
