@@ -21,9 +21,15 @@
     <ClCompile Include="glew.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,6 +38,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="glew32.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\morph.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\morph.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
