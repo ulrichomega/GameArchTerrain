@@ -19,6 +19,6 @@ public:
 	GLuint shaderID;
 	std::vector<GLuint> uniforms;
 
-	GLuint LoadShader(const char* filename, GLenum shader_type);
+	void LoadShader(const char* filename, GLenum shader_type);
 };
 

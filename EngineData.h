@@ -1,7 +1,7 @@
 #pragma once
 
 //OpenGL + GLFW
-#include <GL/glew.h> //MUST come before GLFW!
+#include "glew.h" //MUST come before GLFW!
 #include <GL/glfw.h>
 
 //Math Library
@@ -28,7 +28,10 @@ private:
 	static double startTime;
 
 	//Matrices
-	static glm::mat4 ProjectionMatrix = glm::perspective(60.0f, 16.0f/9.0f, 0.1f, 100.0f);
+	static glm::mat4 ProjectionMatrix;
 
+protected:
+	static void initializeData();
+	static void updateTime();
 };
 
