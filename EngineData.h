@@ -27,13 +27,12 @@ private:
 	static double deltaTime;
 	static double startTime;
 
-	//Matrices
-	static glm::mat4 ProjectionMatrix;
-
 protected:
 	static void initializeData();
 	static void updateTime();
 
+	//Getters and Setters 
+public:
 	//Note: Set does not resize window and will lead to shenanigans if called
 	static void setwindowHeight(int amount) {
 		windowHeight = amount;
@@ -68,7 +67,7 @@ protected:
 		return deltaTime;
 	}
 	static float getStartTime () {
-		return StartTime;
+		return startTime;
 	}
 };
 

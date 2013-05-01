@@ -26,5 +26,6 @@ private:
 	void updateTime();
 	void update();
 	void draw();
+	void initializeOpenGL();
 };
 
