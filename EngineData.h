@@ -57,16 +57,16 @@ public:
 		return windowHandle;
 	}
 
-	static float getCurrentTime () {
+	static double getCurrentTime () {
 		return currentTime;
 	}
-	static float getPastTime () {
+	static double getPastTime () {
 		return pastTime;
 	}
-	static float getDeltaTime () {
+	static double getDeltaTime () {
 		return deltaTime;
 	}
-	static float getStartTime () {
+	static double getStartTime () {
 		return startTime;
 	}
 };

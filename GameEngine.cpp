@@ -1,8 +1,5 @@
 #include "GameEngine.h"
 
-//function prototypes
-void initializeOpenGL();
-
 GameEngine::GameEngine(void)
 {
 
@@ -26,7 +23,9 @@ void GameEngine::run() {
 }
 
 void GameEngine::setup() {
-	Camera activeCamera();
+	Camera* newCamera = new Camera();
+
+	this->activeCamera = newCamera;
 
 	initializeOpenGL();
 }
@@ -73,5 +72,13 @@ void GameEngine::initializeOpenGL() {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-	glfwSetCharCallback ( *
+	//glfwSetCharCallback ( *handleKeyboard );
+	/*NOTE:
+	Cannot set class functions as glfw Callback functions. Have to move this 
+	to the main somehow. That's a job for tomorrow, though. 
+	*/
+}
+
+void GLFWCALL GameEngine::handleKeyboard(int character, int action) {
+	
 }

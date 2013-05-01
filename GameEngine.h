@@ -9,6 +9,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//Standard Library
+#include <vector>
+
 //Other
 #include "EngineData.h"
 #include "Camera.h"
@@ -21,6 +24,10 @@ public:
 
 	void run();
 	void setup();
+
+	Camera* activeCamera;
+	
+	void GLFWCALL handleKeyboard(int, int);
 
 private:
 	void updateTime();
