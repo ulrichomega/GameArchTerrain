@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include <iostream>
 
 GameEngine::GameEngine(void)
 {
@@ -45,22 +46,27 @@ void GameEngine::draw() {
 void GameEngine::initializeOpenGL() {
 	//Initialize Window
 	if (!glfwInit()) {
+		std::cout << "Could not initialize glfw" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 2);
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
 	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	if (!glfwOpenWindow(EngineData::getWindowWidth(), EngineData::getWindowHeight(), 0,0,0,0, 16,0, GLFW_WINDOW) ) {
+		std::cout << "Could not open window" << ": " << gluErrorString(glGetError()) << std::endl;
+        glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+	glfwSetWindowTitle("Terrain Project");
 
 	//Initialize GLEW
 	glewExperimental = GL_TRUE;
 	GLenum glewInitResult = glewInit();
 
 	if (GLEW_OK != glewInitResult) {	//Did GLEW initialize correctly?
+		std::cout << "Could not initialize GLEW" << std::endl;
 		exit(EXIT_FAILURE);//Should probably print something out or something
 	}
 
@@ -71,21 +77,17 @@ void GameEngine::initializeOpenGL() {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
-
-	//glfwSetCharCallback ( *handleKeyboard );
-	/*GLFW Callback functions are set in main.cpp after initializeOpengl is called
-	*/
 }
 
 void GameEngine::handleKeyboard(int key, int action) {
 	
 }
-void handleMouse(int button, int action) {
+void GameEngine::handleMouse(int button, int action) {
 
 }
-void handleMousePos(int x, int y) {
+void GameEngine::handleMousePos(int x, int y) {
 
 }
-void handleMouseWheel(int position) {
+void GameEngine::handleMouseWheel(int position) {
 
 }

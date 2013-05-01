@@ -8,7 +8,7 @@ GameEngine engine;
 
 //Function prototypes
 void setupGLFWCalls();
-void GLFWCALL handleKeyCaller(int key, int action);
+void GLFWCALL handleKeysCaller(int key, int action);
 void GLFWCALL handleMouseCaller(int button, int action);
 void GLFWCALL handleMousePosCaller(int x, int y);
 void GLFWCALL handleMouseWheelCaller(int pos);
@@ -18,6 +18,7 @@ int main () {
 
 	engine.setup();
 
+	setupGLFWCalls();
 
 	engine.run();
 
