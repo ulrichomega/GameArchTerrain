@@ -19,6 +19,7 @@ public:
 	~GameEngine(void);
 
 	void run();
+	void setup();
 
 private:
 	void updateTime();

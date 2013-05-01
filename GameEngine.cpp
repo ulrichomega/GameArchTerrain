@@ -23,6 +23,10 @@ void GameEngine::run() {
 	}
 }
 
+void GameEngine::setup() {
+
+}
+
 void GameEngine::updateTime() {
 	EngineData::updateTime();
 }
