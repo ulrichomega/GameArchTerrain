@@ -73,12 +73,19 @@ void GameEngine::initializeOpenGL() {
 	glFrontFace(GL_CCW);
 
 	//glfwSetCharCallback ( *handleKeyboard );
-	/*NOTE:
-	Cannot set class functions as glfw Callback functions. Have to move this 
-	to the main somehow. That's a job for tomorrow, though. 
+	/*GLFW Callback functions are set in main.cpp after initializeOpengl is called
 	*/
 }
 
-void GLFWCALL GameEngine::handleKeyboard(int character, int action) {
+void GameEngine::handleKeyboard(int key, int action) {
 	
+}
+void handleMouse(int button, int action) {
+
+}
+void handleMousePos(int x, int y) {
+
+}
+void handleMouseWheel(int position) {
+
 }

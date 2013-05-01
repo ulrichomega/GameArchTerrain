@@ -27,7 +27,10 @@ public:
 
 	Camera* activeCamera;
 	
-	void GLFWCALL handleKeyboard(int, int);
+	void handleKeyboard(int, int);
+	void handleMouse(int, int);
+	void handleMousePos(int, int);
+	void handleMouseWheel(int);
 
 private:
 	void updateTime();
