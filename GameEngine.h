@@ -11,6 +11,7 @@
 
 //Other
 #include "EngineData.h"
+#include "Camera.h"
 
 class GameEngine
 {

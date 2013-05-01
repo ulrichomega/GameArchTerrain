@@ -4,7 +4,9 @@
 Camera::Camera(void)
 {
 	this->ProjectionMatrix = glm::perspective(90.0f,1.0f, 0.1f, 100.0f);
-	this->transformMatrix = glm::mat4(1.0f);
+	this->transformMatrix = glm::lookAt(glm::vec3(0.0, 0.0, 15.0),
+		glm::vec3(0.0, 0.0, 0.0),
+		glm::vec3(0.0, 1.0, 0.0));
 }
 
 
