@@ -32,10 +32,10 @@
   <ItemGroup>
     <None Include="glew32.dll" />
     <None Include="GLFW.dll" />
-    <None Include="shaders\morph.fs">
+    <None Include="shaders\basic.fs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
-    <None Include="shaders\morph.vs">
+    <None Include="shaders\basic.vs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
   </ItemGroup>

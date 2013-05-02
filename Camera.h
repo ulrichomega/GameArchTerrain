@@ -18,5 +18,7 @@ public:
 	~Camera(void);
 	
 	glm::mat4 ProjectionMatrix;
+
+	void update(double deltaT);
 };
 

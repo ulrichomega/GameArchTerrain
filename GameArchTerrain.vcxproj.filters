@@ -70,10 +70,10 @@
     <None Include="glew32.dll">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="shaders\morph.fs">
+    <None Include="shaders\basic.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="shaders\morph.vs">
+    <None Include="shaders\basic.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

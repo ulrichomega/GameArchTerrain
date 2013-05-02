@@ -10,3 +10,7 @@ Camera::Camera(void)
 Camera::~Camera(void)
 {
 }
+
+void Camera::update(double deltaT) {
+
+}

@@ -3,6 +3,7 @@
 
 Transform::Transform(void)
 {
+	this->transformMatrix = glm::mat4(1.0f);
 }
 
 
