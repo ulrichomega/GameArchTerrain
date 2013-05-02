@@ -22,7 +22,7 @@ int main () {
 
 	engine.run();
 
-	return 1;
+	return 0;
 }
 
 

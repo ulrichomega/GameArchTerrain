@@ -3,20 +3,22 @@
 
 GameEngine::GameEngine(void)
 {
-
 }
 
 
 GameEngine::~GameEngine(void)
 {
+	delete this->activeCamera;
 }
 
 
 void GameEngine::run() {
+	if (this->running) {return;}
 	EngineData::initializeData();
 
-	bool running = true;
-	while (running) {
+	this->running = true;
+
+	while (this->running) {
 		updateTime();
 		update();
 		draw();
@@ -40,7 +42,7 @@ void GameEngine::update() {
 }
 
 void GameEngine::draw() {
-
+	glfwSwapBuffers();
 }
 
 void GameEngine::initializeOpenGL() {
@@ -80,7 +82,9 @@ void GameEngine::initializeOpenGL() {
 }
 
 void GameEngine::handleKeyboard(int key, int action) {
-	
+	if (key == GLFW_KEY_ESC) {
+		this->exitEngine();
+	}
 }
 void GameEngine::handleMouse(int button, int action) {
 
@@ -90,4 +94,9 @@ void GameEngine::handleMousePos(int x, int y) {
 }
 void GameEngine::handleMouseWheel(int position) {
 
+}
+
+void GameEngine::exitEngine() {
+	glfwTerminate();
+	this->running = false;
 }

@@ -37,5 +37,8 @@ private:
 	void update();
 	void draw();
 	void initializeOpenGL();
+	void exitEngine();
+
+	bool running;
 };
 
