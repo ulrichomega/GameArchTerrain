@@ -14,16 +14,20 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EngineData.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EngineData.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="glew.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />
