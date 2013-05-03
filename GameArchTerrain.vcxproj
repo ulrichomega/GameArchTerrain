@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicShaderProgram.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EngineData.cpp" />
     <ClCompile Include="GameEngine.cpp" />
@@ -19,10 +20,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicShaderProgram.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EngineData.h" />
     <ClInclude Include="GameEngine.h" />
@@ -30,6 +33,7 @@
     <ClInclude Include="glew.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>

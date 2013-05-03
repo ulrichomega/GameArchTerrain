@@ -1,5 +1,4 @@
 #include "GameEngine.h"
-#include <iostream>
 
 GameEngine::GameEngine(void)
 {
@@ -8,13 +7,12 @@ GameEngine::GameEngine(void)
 
 GameEngine::~GameEngine(void)
 {
-	delete this->activeCamera;
+
 }
 
 
 void GameEngine::run() {
 	if (this->running) {return;}
-	EngineData::initializeData();
 
 	this->running = true;
 
@@ -30,10 +28,8 @@ void GameEngine::run() {
 }
 
 void GameEngine::setup() {
-	Camera* newCamera = new Camera();
-
-	this->activeCamera = newCamera;
-
+	EngineData::initializeData();
+	
 	initializeOpenGL();
 }
 
@@ -46,6 +42,9 @@ void GameEngine::update() {
 }
 
 void GameEngine::draw() {
+	for (int i = 0; i < EngineData::getMeshesToDraw()->size(); i++) {
+		EngineData::getMeshesToDraw()->at(i)->draw();
+	}
 	glfwSwapBuffers();
 }
 

@@ -39,7 +39,7 @@ void shader::LoadShader(const char* filename, GLenum shaderType)
                 const GLchar* glsl_source_c = glsl_source;
 				//fprintf(stderr, "Source: %s\n", glsl_source_c);
 
-				if (0 != (shader_id = glCreateShader(shader_type)))
+				if (0 != (shader_id = glCreateShader(shaderType)))
 				{
 					glShaderSource(shader_id, 1, &glsl_source_c, NULL);
 					glCompileShader(shader_id);

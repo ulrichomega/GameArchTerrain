@@ -11,6 +11,7 @@
 
 //Standard Library
 #include <vector>
+#include <iostream>
 
 //In-Project
 //class GameEngine;
@@ -25,8 +26,6 @@ public:
 
 	void run();
 	void setup();
-
-	Camera* activeCamera;
 	
 	void handleKeyboard(int, int);
 	void handleMouse(int, int);

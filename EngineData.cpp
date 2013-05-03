@@ -27,6 +27,8 @@ void EngineData::initializeData() {
 	deltaTime = 0.05;
 	pastTime = currentTime-deltaTime;
 
+	EngineData::activeCamera = new Camera();
+
 	EngineData::readSettings();
 }
 
@@ -49,11 +51,19 @@ void EngineData::readSettings() {
 	keyMap["right"] = 'd';
 }
 
+void EngineData::terminate() {
+	delete EngineData::activeCamera;
+}
+
+Camera* EngineData::getActiveCamera() {
+	return EngineData::activeCamera;
+}
+
 void EngineData::addMesh(Mesh* meshToAdd) {
 	EngineData::drawMeshes.push_back(meshToAdd);
 }
-std::vector<Mesh*> EngineData::getMeshesToDraw(){
-	return EngineData::drawMeshes;
+std::vector<Mesh*>* EngineData::getMeshesToDraw(){
+	return &EngineData::drawMeshes;
 }
 void EngineData::removeMesh (Mesh* meshToRemove) {
 	EngineData::drawMeshes.erase(

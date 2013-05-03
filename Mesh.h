@@ -12,7 +12,7 @@
 class Mesh;
 #include "GameObject.h"
 #include "EngineData.h"
-#include "ShaderProgram.h"
+#include "BasicShaderProgram.h"
 
 
 //Mesh is a component of a GameObject
@@ -34,7 +34,7 @@ public:
 	
 private:
 	GameObject* owner;
-	ShaderProgram shader;
+	BasicShaderProgram shader;
 
 	void createMesh();
 	void createShader();

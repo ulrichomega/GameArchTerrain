@@ -19,6 +19,7 @@
 //In-Project
 //class EngineData;
 #include "Mesh.h"
+#include "Camera.h"
 
 class EngineData
 {
@@ -41,12 +42,15 @@ private:
 	static std::map<std::string,int> keyMap;
 	static std::vector<Mesh*> drawMeshes;
 
+	static Camera* activeCamera;
+
 	static void readSettings();
 
 protected:
 	static void initializeData();
 	static void updateTime();
 
+	static void terminate();
 	//Getters and Setters 
 public:
 	//Note: Set does not resize window and will lead to shenanigans if called
@@ -86,6 +90,8 @@ public:
 		return startTime;
 	}
 
+	static Camera* getActiveCamera();
+
 	//Returns the key that is bound to the given action
 	/*Actions include:
 		Forward
@@ -94,7 +100,7 @@ public:
 		Right
 		Quit	
 	*/
-	static int getKey(std::string keyToGet) {
+	static int getActionKey(std::string keyToGet) {
 		if (EngineData::keyMap.find(keyToGet) != EngineData::keyMap.end()) {
 			return EngineData::keyMap[keyToGet];
 		}
@@ -105,7 +111,7 @@ public:
 	}
 	
 	static void addMesh(Mesh* meshToAdd);
-	static std::vector<Mesh*> getMeshesToDraw();
+	static std::vector<Mesh*>* getMeshesToDraw();
 	static void removeMesh (Mesh* meshToRemove);
 };
 
