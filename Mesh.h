@@ -14,6 +14,14 @@ class Mesh;
 #include "EngineData.h"
 #include "ShaderProgram.h"
 
+
+//Mesh is a component of a GameObject
+/*
+	The Mesh interface contains all methods needed to draw a series of vertices
+	to the screen. 
+	Meshes register themselves with EngineData so that they may be rendered.
+	A Mesh requires a GameObject to exist.
+*/
 class Mesh
 {
 public:

@@ -10,6 +10,7 @@
 
 //Standard Library
 #include <vector>
+#include <string>
 
 //In-Project
 //class shader;
@@ -17,13 +18,15 @@
 class shader
 {
 public:
+	friend class ShaderProgram;
 	shader(void);
-	shader(const char* filename, GLenum shader_type);
+	shader(std::string filename, GLenum shaderType);
 	~shader(void);
 
+	//std::vector<GLuint> uniforms;
+protected:
 	GLuint shaderID;
-	std::vector<GLuint> uniforms;
-
-	void LoadShader(const char* filename, GLenum shader_type);
+private:
+	void LoadShader(const char* filename, GLenum shaderType);
 };
 

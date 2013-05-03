@@ -9,6 +9,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Standard Library
+#include <string>
+#include <iostream>
 
 //In-Project
 #include "shader.h"
@@ -17,9 +19,18 @@ class ShaderProgram
 {
 public:
 	ShaderProgram(void);
+	ShaderProgram(std::string fragmentShader, std::string vertexShader);
 	~ShaderProgram(void);
-private:
+
+	void setShader(std::string filename, GLenum shaderType);
+
+protected:
+	void loadProgram(void);
+	virtual void linkProgram(void) = 0;
+
+	GLuint programID;
+
+	shader fragmentShader;
 	shader vertexShader;
-	shader pixelShader;
 };
 

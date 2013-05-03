@@ -25,5 +25,6 @@ void Mesh::createMesh() {
 	this->createShader();
 }
 void Mesh::createShader() {
-
+	//Note: This mesh currently is hard-coded to use the basic shaders
+	this->shader = ShaderProgram("shader/basic.fs","shader/basic.vs");
 }

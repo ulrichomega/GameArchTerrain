@@ -5,9 +5,9 @@ shader::shader(void)
 {
 }
 
-shader::shader(const char* filename, GLenum shaderType)
+shader::shader(std::string filename, GLenum shaderType)
 {
-	this->LoadShader(filename, shaderType);
+	this->LoadShader(filename.c_str(), shaderType);
 }
 
 
@@ -17,7 +17,7 @@ shader::~shader(void)
 
 
 //Professor Destefano's Load Shader code
-void shader::LoadShader(const char* filename, GLenum shader_type)
+void shader::LoadShader(const char* filename, GLenum shaderType)
 {
 	GLuint shader_id = 0;
 	FILE* file;
