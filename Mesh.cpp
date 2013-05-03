@@ -1,5 +1,8 @@
 #include "Mesh.h"
+
 #include "EngineData.h"
+#include "GameObject.h"
+#include "BasicShaderProgram.h"
 
 Mesh::Mesh(void) 
 {
@@ -16,6 +19,7 @@ Mesh::Mesh(GameObject* owner)
 Mesh::~Mesh(void)
 {
 	EngineData::removeMesh(this);
+	delete this->shader;
 }
 
 void Mesh::draw() {
@@ -34,7 +38,7 @@ void Mesh::createMesh() {
 }
 void Mesh::createShader() {
 	//Note: This mesh currently is hard-coded to use the basic shaders
-	this->shader = BasicShaderProgram("shader/basic.fs","shader/basic.vs");
+	this->shader = new BasicShaderProgram(this,"shader/basic.fs","shader/basic.vs");
 }
 
 //Creates the Vertex Array Object, and Vertex Buffer Objects for the mesh

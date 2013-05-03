@@ -1,5 +1,8 @@
 #include "GameEngine.h"
 
+#include "EngineData.h"
+#include "Mesh.h"
+
 GameEngine::GameEngine(void)
 {
 }

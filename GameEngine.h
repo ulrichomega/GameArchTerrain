@@ -14,9 +14,6 @@
 #include <iostream>
 
 //In-Project
-//class GameEngine;
-#include "EngineData.h"
-#include "Camera.h"
 
 class GameEngine
 {

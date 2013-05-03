@@ -1,11 +1,12 @@
 #include "ShaderProgram.h"
-
+#include "Mesh.h"
 
 ShaderProgram::ShaderProgram(void)
 {
 }
 
-ShaderProgram::ShaderProgram(std::string fragmentShader, std::string vertexShader){
+ShaderProgram::ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader){
+	this->owner = owner;
 	this->fragmentShader = shader(fragmentShader, GL_FRAGMENT_SHADER);
 	this->vertexShader = shader(vertexShader, GL_VERTEX_SHADER);
 

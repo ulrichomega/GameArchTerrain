@@ -14,12 +14,13 @@
 
 //In-Project
 #include "shader.h"
+class Mesh;
 
 class ShaderProgram
 {
 public:
 	ShaderProgram(void);
-	ShaderProgram(std::string fragmentShader, std::string vertexShader);
+	ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~ShaderProgram(void);
 
 	void setShader(std::string filename, GLenum shaderType);
@@ -27,6 +28,9 @@ public:
 protected:
 	void loadProgram(void);
 	virtual void linkProgram(void) = 0;
+	virtual void updateUniforms(void) = 0;
+
+	Mesh* owner;
 
 	GLuint programID;
 

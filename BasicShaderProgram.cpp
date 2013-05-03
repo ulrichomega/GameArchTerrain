@@ -5,8 +5,8 @@ BasicShaderProgram::BasicShaderProgram(void)
 {
 }
 
-BasicShaderProgram::BasicShaderProgram(std::string fragmentShader, std::string vertexShader)
-	: ShaderProgram(fragmentShader, vertexShader)
+BasicShaderProgram::BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader)
+	: ShaderProgram(newOwner, fragmentShader, vertexShader)
 {
 }
 
@@ -29,4 +29,8 @@ void BasicShaderProgram::linkProgram(void) {
 	this->viewMatrixUniform = glGetUniformLocation( this->programID, "ViewMatrix");
 	this->projectionMatrixUniform = glGetUniformLocation( this->programID, "ProjectionMatrix");
 	this->samplerUniform = glGetUniformLocation( this->programID, "s_tex" );
+}
+
+void BasicShaderProgram::updateUniforms(void) {
+	//glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(
 }

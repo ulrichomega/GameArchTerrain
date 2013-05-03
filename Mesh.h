@@ -1,4 +1,5 @@
 #pragma once
+
 //OpenGL + GLFW
 #include <GL/glew.h> //MUST come before GLFW!
 #include <GL/glfw.h>
@@ -17,8 +18,8 @@
 #include <sstream>
 
 //In-Project
-#include "GameObject.h"
-#include "BasicShaderProgram.h"
+class GameObject;
+class BasicShaderProgram;
 #include "vertex.h"
 
 //Mesh is a component of a GameObject
@@ -28,7 +29,7 @@
 	Meshes register themselves with EngineData so that they may be rendered.
 	A Mesh requires a GameObject to exist.
 */
-;class Mesh
+class Mesh
 {
 public:
 	Mesh(void);
@@ -40,7 +41,7 @@ public:
 	
 private:
 	GameObject* owner;
-	BasicShaderProgram shader;
+	BasicShaderProgram* shader;
 
 	GLuint vertexArrayID;
 	GLuint vertexBufferID;

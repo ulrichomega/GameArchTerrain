@@ -13,7 +13,6 @@
 #include <iostream>
 
 //In-Project
-#include "shader.h"
 #include "ShaderProgram.h"
 
 //BasicShader implements ShaderProgram on the shaders "basic.fs" and "basic.vs"
@@ -21,7 +20,7 @@ class BasicShaderProgram : public ShaderProgram
 {
 public:
 	BasicShaderProgram(void);
-	BasicShaderProgram(std::string fragmentShader, std::string vertexShader);
+	BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~BasicShaderProgram(void);
 
 private:
@@ -32,5 +31,7 @@ private:
 	GLuint samplerUniform;
 
 	void linkProgram(void);
+
+	void updateUniforms(void);
 };
 

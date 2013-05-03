@@ -15,4 +15,4 @@ struct vertex {
 	bool operator==(const vertex that) const{
 		return memcmp((void*)this, (void*)&that, sizeof(vertex))==0;
 	};
-}
+};

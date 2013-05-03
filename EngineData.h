@@ -18,8 +18,8 @@
 
 //In-Project
 //class EngineData;
-#include "Mesh.h"
-#include "Camera.h"
+class Mesh;
+class Camera;
 
 class EngineData
 {

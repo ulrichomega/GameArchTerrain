@@ -1,5 +1,8 @@
 #include "EngineData.h"
 
+#include "Mesh.h"
+#include "Camera.h"
+
 double EngineData::currentTime;
 double EngineData::pastTime;
 double EngineData::deltaTime;
