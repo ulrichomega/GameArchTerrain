@@ -34,4 +34,6 @@ void Camera::update(double deltaT) {
 	if (this->velocity.length() > this->maxVelocity ) {
 		glm::clamp(this->velocity,0.0f,this->maxVelocity);
 	}
+
+	this->transform.moveRelativeVec(this->velocity);
 }
