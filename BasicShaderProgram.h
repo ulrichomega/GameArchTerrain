@@ -19,9 +19,13 @@
 class BasicShaderProgram : public ShaderProgram
 {
 public:
+	friend class Mesh;
 	BasicShaderProgram(void);
 	BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~BasicShaderProgram(void);
+
+protected:
+	void updateUniforms(void);
 
 private:
 	//Uniform locations
@@ -32,6 +36,5 @@ private:
 
 	void linkProgram(void);
 
-	void updateUniforms(void);
 };
 

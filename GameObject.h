@@ -23,8 +23,9 @@ public:
 	~GameObject(void);
 
 	virtual void update(double deltaT) = 0;
+	
+	Transform transform;
 
 protected:
-	Transform transform;
 };
 

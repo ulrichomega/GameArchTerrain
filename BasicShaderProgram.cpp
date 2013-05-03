@@ -1,5 +1,9 @@
 #include "BasicShaderProgram.h"
 
+#include "Mesh.h"
+#include "Transform.h"
+#include "EngineData.h"
+#include "Camera.h"
 
 BasicShaderProgram::BasicShaderProgram(void)
 {
@@ -32,5 +36,7 @@ void BasicShaderProgram::linkProgram(void) {
 }
 
 void BasicShaderProgram::updateUniforms(void) {
-	//glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(
+	glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(this->owner->getTransform()->transformMatrix));
+	glUniformMatrix4fv(this->viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(EngineData::getActiveCamera()->transform.transformMatrix));
+	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(EngineData::getActiveCamera()->ProjectionMatrix));
 }

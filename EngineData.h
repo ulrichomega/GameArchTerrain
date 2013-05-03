@@ -20,6 +20,7 @@
 //class EngineData;
 class Mesh;
 class Camera;
+class GameObject;
 
 class EngineData
 {
@@ -41,6 +42,7 @@ private:
 
 	static std::map<std::string,int> keyMap;
 	static std::vector<Mesh*> drawMeshes;
+	static std::vector<GameObject*> gameObjects;
 
 	static Camera* activeCamera;
 
@@ -113,5 +115,9 @@ public:
 	static void addMesh(Mesh* meshToAdd);
 	static std::vector<Mesh*>* getMeshesToDraw();
 	static void removeMesh (Mesh* meshToRemove);
+
+	static void addGameObject(GameObject* objectToAdd);
+	static std::vector<GameObject*>* getGameObjects();
+	static void removeGameObject (GameObject* objectToRemove);
 };
 

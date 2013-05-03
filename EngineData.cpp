@@ -1,6 +1,7 @@
 #include "EngineData.h"
 
 #include "Mesh.h"
+#include "GameObject.h"
 #include "Camera.h"
 
 double EngineData::currentTime;
@@ -13,6 +14,7 @@ int EngineData::windowWidth;
 
 std::map<std::string,int> EngineData::keyMap;
 std::vector<Mesh*> EngineData::drawMeshes;
+std::vector<GameObject*> EngineData::gameObjects;
 Camera* EngineData::activeCamera;
 
 EngineData::EngineData(void)
@@ -74,3 +76,16 @@ void EngineData::removeMesh (Mesh* meshToRemove) {
 		std::find(EngineData::drawMeshes.begin(),
 		EngineData::drawMeshes.end(), meshToRemove));
 }
+
+void EngineData::addGameObject(GameObject* objectToAdd) {
+	EngineData::gameObjects.push_back(objectToAdd);
+}
+std::vector<GameObject*>* EngineData::getGameObjects(){
+	return &EngineData::gameObjects;
+}
+void EngineData::removeGameObject (GameObject* objectToRemove) {
+	EngineData::gameObjects.erase(
+		std::find(EngineData::gameObjects.begin(),
+		EngineData::gameObjects.end(), objectToRemove));
+}
+

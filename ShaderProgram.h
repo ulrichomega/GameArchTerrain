@@ -19,6 +19,7 @@ class Mesh;
 class ShaderProgram
 {
 public:
+	friend class Mesh;
 	ShaderProgram(void);
 	ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~ShaderProgram(void);

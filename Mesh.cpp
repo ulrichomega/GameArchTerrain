@@ -23,10 +23,11 @@ Mesh::~Mesh(void)
 }
 
 void Mesh::draw() {
-
+	this->shader->updateUniforms();
 }
 
 void Mesh::createMesh() {
+	//Currently hardcoded for testing purposes;
 	this->loadOBJ("data/container.obj");
 
 	this->createShader();
@@ -40,7 +41,6 @@ void Mesh::createShader() {
 	//Note: This mesh currently is hard-coded to use the basic shaders
 	this->shader = new BasicShaderProgram(this,"shader/basic.fs","shader/basic.vs");
 }
-
 //Creates the Vertex Array Object, and Vertex Buffer Objects for the mesh
 void Mesh::createBuffers() {
 	//Generate Vertex Array Object
@@ -64,7 +64,6 @@ void Mesh::createBuffers() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexBufferID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(vertex)*this->vertexIndices.size()), this->vertexIndices.data(), GL_STATIC_DRAW);
 }
-
 void Mesh::createTexture(std::string filename) {
 	glGenTextures(1, &this->textureID);
 	glBindTexture(GL_TEXTURE_2D, this->textureID);
@@ -171,4 +170,8 @@ void Mesh::loadOBJ(std::string fileName) {
 		}
 
 	}
+}
+
+Transform* Mesh::getTransform() {
+	return &this->owner->transform;
 }

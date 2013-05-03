@@ -20,6 +20,7 @@
 //In-Project
 class GameObject;
 class BasicShaderProgram;
+class Transform;
 #include "vertex.h"
 
 //Mesh is a component of a GameObject
@@ -38,6 +39,11 @@ public:
 	~Mesh(void);
 
 	void draw();
+	friend class ShaderProgram;
+	friend class BasicShaderProgram;	//Isn't friendship inherited?
+
+protected:
+	Transform* getTransform();
 	
 private:
 	GameObject* owner;
@@ -56,5 +62,6 @@ private:
 	void createShader();
 	void createBuffers();
 	void createTexture(std::string filename);
+	
 };
 
