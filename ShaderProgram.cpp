@@ -6,11 +6,9 @@ ShaderProgram::ShaderProgram(void)
 }
 
 ShaderProgram::ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader){
-	this->owner = owner;
+	this->owner = newOwner;
 	this->fragmentShader = shader(fragmentShader, GL_FRAGMENT_SHADER);
 	this->vertexShader = shader(vertexShader, GL_VERTEX_SHADER);
-
-	this->loadProgram();
 }
 
 ShaderProgram::~ShaderProgram(void)

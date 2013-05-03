@@ -97,10 +97,10 @@
     <None Include="glew32.dll">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="shaders\basic.fs">
+    <None Include="basic.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="shaders\basic.vs">
+    <None Include="basic.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

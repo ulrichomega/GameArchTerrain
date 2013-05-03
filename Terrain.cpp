@@ -1,9 +1,10 @@
 #include "Terrain.h"
 
+#include "Mesh.h"
 
 Terrain::Terrain(void)
 {
-	//this->mesh = Mesh(this);
+	this->mesh = new Mesh(this);
 }
 
 

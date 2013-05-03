@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "Terrain.h"
 
 double EngineData::currentTime;
 double EngineData::pastTime;
@@ -34,6 +35,7 @@ void EngineData::initializeData() {
 	pastTime = currentTime-deltaTime;
 
 	EngineData::activeCamera = new Camera();
+	EngineData::gameObjects.push_back(new Terrain());
 
 	EngineData::readSettings();
 }

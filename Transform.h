@@ -27,6 +27,9 @@ public:
 	//Transform* parent;
 	//std::vector<Transform*> children;
 
+	void setTransformMatrix(glm::mat4 transformMatrix);
+	glm::mat4* getTransformMatrix();
+
 	//Move transform in absolute coordinates
 	void moveX(float amount);
 	void moveY(float amount);

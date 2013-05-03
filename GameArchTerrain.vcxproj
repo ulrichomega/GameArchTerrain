@@ -39,14 +39,14 @@
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="basic.fs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="basic.vs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="glew32.dll" />
     <None Include="GLFW.dll" />
-    <None Include="shaders\basic.fs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="shaders\basic.vs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E5AD12CA-387E-4ECD-A7C5-9FB6C1DB4E87}</ProjectGuid>

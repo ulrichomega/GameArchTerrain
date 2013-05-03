@@ -24,20 +24,19 @@ void shader::LoadShader(const char* filename, GLenum shaderType)
 	long file_size = -1;
 	GLchar* glsl_source;
     fprintf(stderr, "name: %s\n",filename);
-
+	
 	if (NULL != (file = fopen(filename, "rb")) &&
 		0 == fseek(file, 0, SEEK_END) &&
 		-1 != (file_size = ftell(file)))
 	{
 		rewind(file);
-		
 		if (NULL != (glsl_source = (GLchar*)malloc(file_size + 1)))
 		{
 			if (file_size == (long)fread(glsl_source, sizeof(GLchar), file_size, file))
 			{
 				glsl_source[file_size] = '\0';
                 const GLchar* glsl_source_c = glsl_source;
-				//fprintf(stderr, "Source: %s\n", glsl_source_c);
+				fprintf(stderr, "Source: %s\n", glsl_source_c);
 
 				if (0 != (shader_id = glCreateShader(shaderType)))
 				{

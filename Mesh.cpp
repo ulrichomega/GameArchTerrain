@@ -24,6 +24,11 @@ Mesh::~Mesh(void)
 
 void Mesh::draw() {
 	this->shader->updateUniforms();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
+	glBindVertexArray(this->vertexBufferID);
+
+	glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, (GLvoid*)0);
+	std::cout << "I'M BEING DRAWN." << std::endl;
 }
 
 void Mesh::createMesh() {
@@ -39,7 +44,7 @@ void Mesh::createMesh() {
 }
 void Mesh::createShader() {
 	//Note: This mesh currently is hard-coded to use the basic shaders
-	this->shader = new BasicShaderProgram(this,"shader/basic.fs","shader/basic.vs");
+	this->shader = new BasicShaderProgram(this,"basic.fs","basic.vs");
 }
 //Creates the Vertex Array Object, and Vertex Buffer Objects for the mesh
 void Mesh::createBuffers() {
@@ -62,7 +67,7 @@ void Mesh::createBuffers() {
 
 	glGenBuffers(1, &this->vertexIndexID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexBufferID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(vertex)*this->vertexIndices.size()), this->vertexIndices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), this->vertexIndices.data(), GL_STATIC_DRAW);
 }
 void Mesh::createTexture(std::string filename) {
 	glGenTextures(1, &this->textureID);

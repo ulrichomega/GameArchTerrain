@@ -55,7 +55,7 @@ private:
 	GLuint textureID;
 
 	std::vector<vertex> vertices;
-	std::vector<int> vertexIndices;
+	std::vector<GLuint> vertexIndices;
 
 	void createMesh();
 	void loadOBJ(std::string fileName);

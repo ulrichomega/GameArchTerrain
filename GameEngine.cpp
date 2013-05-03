@@ -20,9 +20,9 @@ void GameEngine::run() {
 	this->running = true;
 
 	while (this->running) {
-		updateTime();
-		update();
-		draw();
+		this->updateTime();
+		this->update();
+		this->draw();
 		if (!this->running) {
 			std::cout << "I am going to quit, now" << std::endl;
 			glfwTerminate();
@@ -31,9 +31,8 @@ void GameEngine::run() {
 }
 
 void GameEngine::setup() {
-	EngineData::initializeData();
-	
 	initializeOpenGL();
+	EngineData::initializeData();
 }
 
 void GameEngine::updateTime() {

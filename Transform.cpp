@@ -11,6 +11,13 @@ Transform::~Transform(void)
 {
 }
 
+void Transform::setTransformMatrix(glm::mat4 transformMatrix){
+	this->transformMatrix = transformMatrix;
+}
+glm::mat4* Transform::getTransformMatrix(){
+	return &this->transformMatrix;
+}
+
 void Transform::moveX(float amount) {
 	this->transformMatrix = glm::translate(this->transformMatrix,glm::vec3(amount,0.0f,0.0f));
 }

@@ -12,6 +12,7 @@ BasicShaderProgram::BasicShaderProgram(void)
 BasicShaderProgram::BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader)
 	: ShaderProgram(newOwner, fragmentShader, vertexShader)
 {
+	this->loadProgram();
 }
 
 
