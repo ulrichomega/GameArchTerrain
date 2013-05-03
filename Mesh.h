@@ -12,6 +12,7 @@
 class Mesh;
 #include "GameObject.h"
 #include "EngineData.h"
+#include "ShaderProgram.h"
 
 class Mesh
 {
@@ -25,5 +26,9 @@ public:
 	
 private:
 	GameObject* owner;
+	ShaderProgram shader;
+
+	void createMesh();
+	void createShader();
 };
 

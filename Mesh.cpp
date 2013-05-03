@@ -8,6 +8,7 @@ Mesh::Mesh(GameObject* owner)
 {
 	this->owner = owner;
 	EngineData::addMesh(this);
+	this->createMesh();
 }
 
 
@@ -17,5 +18,12 @@ Mesh::~Mesh(void)
 }
 
 void Mesh::draw() {
+
+}
+
+void Mesh::createMesh() {
+	this->createShader();
+}
+void Mesh::createShader() {
 
 }
