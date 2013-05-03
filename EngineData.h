@@ -12,6 +12,7 @@
 //Standard Library
 #include <string>
 #include <map>
+#include <iostream>
 
 class EngineData
 {
@@ -86,6 +87,14 @@ public:
 		Right
 		Quit	
 	*/
-	static int getKey(std::string keyToGet);
+	static int getKey(std::string keyToGet) {
+		if (EngineData::keyMap.find(keyToGet) != EngineData::keyMap.end()) {
+			return EngineData::keyMap[keyToGet];
+		}
+		else {
+			std::cout << "Could not find key: " << keyToGet << std::endl;
+			throw "Could not find key";
+		}
+	}
 };
 

@@ -47,3 +47,4 @@ void EngineData::readSettings() {
 	keyMap["left"] = 'a';
 	keyMap["right"] = 'd';
 }
+

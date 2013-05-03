@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 
-Camera::Camera(void)
+Camera::Camera(void) : maxVelocity(10.0f)
 {
 	this->ProjectionMatrix = glm::perspective(90.0f,1.0f, 0.1f, 100.0f);
 	this->velocity = glm::vec3(0.0f,0.0f,0.0f);

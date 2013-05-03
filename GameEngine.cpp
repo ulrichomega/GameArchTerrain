@@ -22,6 +22,10 @@ void GameEngine::run() {
 		updateTime();
 		update();
 		draw();
+		if (!this->running) {
+			std::cout << "I am going to quit, now" << std::endl;
+			glfwTerminate();
+		}
 	}
 }
 
@@ -97,6 +101,5 @@ void GameEngine::handleMouseWheel(int position) {
 }
 
 void GameEngine::exitEngine() {
-	glfwTerminate();
 	this->running = false;
 }

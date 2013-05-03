@@ -25,6 +25,6 @@ public:
 private:
 	bool moving;
 	glm::vec3 velocity;
-	const float maxVelocity = 10.0f;
+	const float maxVelocity;
 };
 
