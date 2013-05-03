@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "GameObject.h"
+#include "EngineData.h"
 
 //TODO: Implement rotation around point
 class Camera : public GameObject
@@ -20,5 +21,10 @@ public:
 	glm::mat4 ProjectionMatrix;
 
 	void update(double deltaT);
+
+private:
+	bool moving;
+	glm::vec3 velocity;
+	const float maxVelocity = 10.0f;
 };
 

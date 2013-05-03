@@ -23,17 +23,19 @@ public:
 	//Transform* parent;
 	//std::vector<Transform*> children;
 
-	//Move camera in absolute coordinates
+	//Move transform in absolute coordinates
 	void moveX(float amount);
 	void moveY(float amount);
 	void moveZ(float amount);
+	void moveVec(glm::vec3 translation);
 
-	//Move camera relative to current facing
+	//Move transform relative to current facing
 	void moveForward(float amount);
 	void moveUp(float amount);
 	void moveSide(float amount);
+	void moveRelativeVec(glm::vec3 translation);
 
-	//Rotate camera facing
+	//Rotate transform facing
 	void rotateH(float amount);	//around Y axis
 	void rotateP(float amount);	//around Z axis
 	void rotateR(float amount);	//around X axis

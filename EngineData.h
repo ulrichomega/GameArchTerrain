@@ -9,6 +9,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//Standard Library
+#include <string>
+#include <map>
+
 class EngineData
 {
 public:
@@ -26,6 +30,10 @@ private:
 	static double pastTime;
 	static double deltaTime;
 	static double startTime;
+
+	static std::map<std::string,int> keyMap;
+
+	static void readSettings();
 
 protected:
 	static void initializeData();
@@ -69,5 +77,15 @@ public:
 	static double getStartTime () {
 		return startTime;
 	}
+
+	//Returns the key that is bound to the given action
+	/*Actions include:
+		Forward
+		Back
+		Left
+		Right
+		Quit	
+	*/
+	static int getKey(std::string keyToGet);
 };
 
