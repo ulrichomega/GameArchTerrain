@@ -13,6 +13,10 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <vector>
+
+//Other
+#include "Mesh.h"
 
 class EngineData
 {
@@ -33,6 +37,7 @@ private:
 	static double startTime;
 
 	static std::map<std::string,int> keyMap;
+	static std::vector<Mesh*> drawMeshes;
 
 	static void readSettings();
 
@@ -95,6 +100,13 @@ public:
 			std::cout << "Could not find key: " << keyToGet << std::endl;
 			throw "Could not find key";
 		}
+	}
+	
+	static void addMesh(Mesh* meshToAdd) {
+		EngineData::drawMeshes.push_back(meshToAdd);
+	}
+	std::vector<Mesh*> getMeshesToDraw(){
+		return EngineData::drawMeshes;
 	}
 };
 

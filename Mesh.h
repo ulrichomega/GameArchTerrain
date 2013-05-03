@@ -17,6 +17,8 @@ public:
 	Mesh(GameObject* owner);
 
 	~Mesh(void);
+
+	void draw();
 	
 private:
 	GameObject* owner;
