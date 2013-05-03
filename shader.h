@@ -8,7 +8,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//Standard Library
 #include <vector>
+
+//In-Project
+//class shader;
+
 class shader
 {
 public:

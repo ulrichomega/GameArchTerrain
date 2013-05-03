@@ -1,5 +1,8 @@
 #include "Mesh.h"
 
+Mesh::Mesh(void) 
+{
+}
 
 Mesh::Mesh(GameObject* owner)
 {
@@ -10,6 +13,7 @@ Mesh::Mesh(GameObject* owner)
 
 Mesh::~Mesh(void)
 {
+	EngineData::removeMesh(this);
 }
 
 void Mesh::draw() {

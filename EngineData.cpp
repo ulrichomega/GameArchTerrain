@@ -9,6 +9,7 @@ int EngineData::windowHeight;
 int EngineData::windowWidth;
 
 std::map<std::string,int> EngineData::keyMap;
+std::vector<Mesh*> EngineData::drawMeshes;
 
 EngineData::EngineData(void)
 {
@@ -48,3 +49,14 @@ void EngineData::readSettings() {
 	keyMap["right"] = 'd';
 }
 
+void EngineData::addMesh(Mesh* meshToAdd) {
+	EngineData::drawMeshes.push_back(meshToAdd);
+}
+std::vector<Mesh*> EngineData::getMeshesToDraw(){
+	return EngineData::drawMeshes;
+}
+void EngineData::removeMesh (Mesh* meshToRemove) {
+	EngineData::drawMeshes.erase(
+		std::find(EngineData::drawMeshes.begin(),
+		EngineData::drawMeshes.end(), meshToRemove));
+}

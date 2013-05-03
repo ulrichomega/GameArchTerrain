@@ -9,7 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//Other
+//In-Project
+//class Terrain;
 #include "GameObject.h"
 #include "Mesh.h"
 

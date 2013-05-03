@@ -12,7 +12,8 @@
 //Standard Library
 #include <vector>
 
-//Other
+//In-Project
+//class GameEngine;
 #include "EngineData.h"
 #include "Camera.h"
 

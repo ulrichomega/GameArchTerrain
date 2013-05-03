@@ -8,12 +8,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//In-Project
+class Mesh;
 #include "GameObject.h"
 #include "EngineData.h"
 
 class Mesh
 {
 public:
+	Mesh(void);
 	Mesh(GameObject* owner);
 
 	~Mesh(void);

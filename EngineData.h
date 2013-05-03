@@ -14,8 +14,10 @@
 #include <map>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-//Other
+//In-Project
+//class EngineData;
 #include "Mesh.h"
 
 class EngineData
@@ -102,11 +104,8 @@ public:
 		}
 	}
 	
-	static void addMesh(Mesh* meshToAdd) {
-		EngineData::drawMeshes.push_back(meshToAdd);
-	}
-	std::vector<Mesh*> getMeshesToDraw(){
-		return EngineData::drawMeshes;
-	}
+	static void addMesh(Mesh* meshToAdd);
+	static std::vector<Mesh*> getMeshesToDraw();
+	static void removeMesh (Mesh* meshToRemove);
 };
 
