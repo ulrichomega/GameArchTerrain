@@ -10,6 +10,7 @@ int EngineData::windowWidth;
 
 std::map<std::string,int> EngineData::keyMap;
 std::vector<Mesh*> EngineData::drawMeshes;
+Camera* EngineData::activeCamera;
 
 EngineData::EngineData(void)
 {

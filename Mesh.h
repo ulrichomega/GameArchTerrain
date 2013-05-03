@@ -8,12 +8,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//In-Project
-class Mesh;
-#include "GameObject.h"
-#include "EngineData.h"
-#include "BasicShaderProgram.h"
+//Standard Library
+#include <vector>
+#include <cstddef>	//offsetof
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
+//In-Project
+#include "GameObject.h"
+#include "BasicShaderProgram.h"
+#include "vertex.h"
 
 //Mesh is a component of a GameObject
 /*
@@ -22,7 +28,7 @@ class Mesh;
 	Meshes register themselves with EngineData so that they may be rendered.
 	A Mesh requires a GameObject to exist.
 */
-class Mesh
+;class Mesh
 {
 public:
 	Mesh(void);
@@ -36,7 +42,18 @@ private:
 	GameObject* owner;
 	BasicShaderProgram shader;
 
+	GLuint vertexArrayID;
+	GLuint vertexBufferID;
+	GLuint vertexIndexID;
+	GLuint textureID;
+
+	std::vector<vertex> vertices;
+	std::vector<int> vertexIndices;
+
 	void createMesh();
+	void loadOBJ(std::string fileName);
 	void createShader();
+	void createBuffers();
+	void createTexture(std::string filename);
 };
 

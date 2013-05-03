@@ -9,7 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //In-Project
-//class Camera;
+class Camera;
 #include "GameObject.h"
 #include "EngineData.h"
 

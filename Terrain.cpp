@@ -3,7 +3,7 @@
 
 Terrain::Terrain(void)
 {
-	this->mesh = Mesh(this);
+	//this->mesh = Mesh(this);
 }
 
 

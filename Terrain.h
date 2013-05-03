@@ -12,7 +12,7 @@
 //In-Project
 //class Terrain;
 #include "GameObject.h"
-#include "Mesh.h"
+//#include "Mesh.h"
 
 class Terrain : public GameObject
 {
@@ -23,6 +23,6 @@ public:
 	void update(double deltaT);
 
 private: 
-	Mesh mesh;
+	//Mesh mesh;
 };
 

@@ -36,6 +36,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />

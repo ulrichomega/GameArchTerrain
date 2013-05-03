@@ -13,7 +13,7 @@
 #include <vector>
 
 //In-Project
-class Transform;
+//class Transform;
 
 class Transform
 {

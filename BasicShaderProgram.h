@@ -29,7 +29,7 @@ private:
 	GLuint modelMatrixUniform;
 	GLuint viewMatrixUniform;
 	GLuint projectionMatrixUniform;
-
+	GLuint samplerUniform;
 
 	void linkProgram(void);
 };
