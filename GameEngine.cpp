@@ -50,6 +50,7 @@ void GameEngine::draw() {
 	for (int i = 0; i < EngineData::getMeshesToDraw()->size(); i++) {
 		EngineData::getMeshesToDraw()->at(i)->draw();
 	}
+
 	glfwSwapBuffers();
 }
 

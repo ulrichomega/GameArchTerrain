@@ -53,6 +53,7 @@ void Transform::moveSide(float amount) {
 }
 void Transform::moveRelativeVec(glm::vec3 translation){
 	glm::vec3 relativeTranslation = (glm::vec3)(this->transformMatrix * glm::vec4(translation, 0));
+	this->transformMatrix = glm::translate(this->transformMatrix, relativeTranslation);
 }
 
 

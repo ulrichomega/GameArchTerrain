@@ -24,19 +24,22 @@ Mesh::~Mesh(void)
 }
 
 void Mesh::draw() {
-	//checkGLError("fjkdlsafsa");
-	this->shader->updateUniforms();
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
+	glUseProgram(this->shader->programID);
+	checkGLError("Could not use shader program");
+	
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
 	glBindVertexArray(this->vertexBufferID);
 	checkGLError("Could not bind buffers to be active");
 
-	glUseProgram(this->shader->programID);
-	checkGLError("Could not use shader program");
+	this->shader->updateUniforms();
 
 	glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, (GLvoid*)0);
 	checkGLError("Could not draw mesh");
 	std::cout << "Finished drawing a mesh" << std::endl;
+
+	//Unbind program and buffer
+	glUseProgram(0);
+	glBindVertexArray(0);
 }
 
 void Mesh::createMesh() {
@@ -61,22 +64,30 @@ void Mesh::createBuffers() {
 	glGenBuffers(1, &this->vertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID);
 	checkGLError("Could not generate the VertexBuffer");
-	glBufferData(GL_ARRAY_BUFFER, (sizeof(vertex)*this->vertices.size()), this->vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, (sizeof(this->vertices[0])*this->vertices.size()), (GLvoid*)&this->vertices[0], GL_STATIC_DRAW);
 	checkGLError("Could not fill VertexBuffer");
 	
 	//Generate and fill the vertex index buffer
 	glGenBuffers(1, &this->vertexIndexID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexBufferID);
 	checkGLError("Could not generate the VertexIndexBuffer");
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), this->vertexIndices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), (GLvoid*)this->vertexIndices.data(), GL_STATIC_DRAW);
 	checkGLError("Could not fill the VertexIndexBuffer");
-	
+
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+
 	//Generate Vertex Array Object
 	glGenVertexArrays(1, &this->vertexArrayID);
 	glBindVertexArray(this->vertexArrayID);
 	checkGLError("Could not generate and bind VertexArray");
 
+	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID);
 	this->shader->linkVertexAttributes();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
+
+	//Unbind the buffer
+	glBindVertexArray(0);
 }
 void Mesh::createTexture(std::string filename) {
 	glGenTextures(1, &this->textureID);
@@ -187,6 +198,20 @@ void Mesh::loadOBJ(std::string fileName) {
 		}
 
 	}
+
+	this->vertices.clear();
+	this->vertexIndices.clear();
+
+	vertex tempVert = {{1.0f,1.0f,1.0f},{1.0f,1.0f},{1.0f,1.0f,1.0f}};
+	this->vertices.push_back(tempVert);
+	vertex tempVert2 = {{1.0f,1.0f,0.0f},{1.0f,1.0f},{1.0f,1.0f,1.0f}};
+	this->vertices.push_back(tempVert2);
+	vertex tempVert3 = {{1.0f,0.0f,1.0f},{1.0f,1.0f},{1.0f,1.0f,1.0f}};
+	this->vertices.push_back(tempVert3);
+
+	this->vertexIndices.push_back(0);
+	this->vertexIndices.push_back(1);
+	this->vertexIndices.push_back(2);
 }
 
 Transform* Mesh::getTransform() {

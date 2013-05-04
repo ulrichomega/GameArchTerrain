@@ -44,18 +44,14 @@ void BasicShaderProgram::linkVertexAttributes() {
 	
 	//Bind the vertex attributes
 	glEnableVertexAttribArray(0);
-	checkGLError("Could not enable Vertex Attributes1");
 	glEnableVertexAttribArray(1);
-	checkGLError("Could not enable Vertex Attributes2");
 	glEnableVertexAttribArray(2);
-	checkGLError("Could not enable Vertex Attributes3");
+	checkGLError("Could not enable Vertex Attributes");
 	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex,position));
-	checkGLError("Could not set the Vertex Attribute1");
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex,uvPos));
-	checkGLError("Could not set the Vertex Attribute2");
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex,normal));
-	checkGLError("Could not set the Vertex Attribute3");
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(sizeof(float)*3));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(sizeof(float)*3+sizeof(float)*2));
+	checkGLError("Could not set the Vertex Attribute");
 }
 
 void BasicShaderProgram::updateUniforms(void) {
