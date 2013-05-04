@@ -1,15 +1,12 @@
 #include "Camera.h"
 
 
-Camera::Camera(void) : maxVelocity(10.0f)
+Camera::Camera(void) : maxVelocity(10.0f), rotateHSpeed(10.0f), rotatePSpeed(10.0f)
 {
 	this->ProjectionMatrix = glm::perspective(60.0f, 1.0f, 0.1f, 100.f);
 
-	this->transform.setTransformMatrix( glm::lookAt(glm::vec3(0.0, 0.0, 15.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	this->transform.setTransformMatrix( glm::lookAt(glm::vec3(0.0, 0.0, 5.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	this->velocity = glm::vec3(0.0f,0.0f,0.0f);
-
-	this->rotateHSpeed = 10.0f;
-	this->rotatePSpeed = 10.0f;
 }
 
 
@@ -62,6 +59,6 @@ void Camera::updateMove(double deltaT) {
 void Camera::updateRotate(double deltaT){
 	glm::vec2 mouseDelta = EngineData::getMouseDelta();
 
-	this->transform.rotateH(mouseDelta.x*deltaT);
-	this->transform.rotateP(mouseDelta.y*deltaT);
+	this->transform.rotateY(mouseDelta.x*deltaT*this->rotateHSpeed);
+	this->transform.rotateP(mouseDelta.y*deltaT*this->rotatePSpeed);
 }

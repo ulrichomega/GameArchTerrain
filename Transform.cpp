@@ -58,22 +58,33 @@ void Transform::moveRelativeVec(glm::vec3 translation){
 
 
 void Transform::rotateH(float amount) {
-	this->transformMatrix = glm::rotate(this->transformMatrix, amount,glm::vec3(0,1,0));
+	this->transformMatrix = glm::rotate(this->transformMatrix, amount, this->upVector());
 }
 void Transform::rotateP(float amount) {
-	this->transformMatrix = glm::rotate(this->transformMatrix, amount,glm::vec3(0,0,1));
+	this->transformMatrix = glm::rotate(this->transformMatrix, amount, this->sideVector());
 }
 void Transform::rotateR(float amount) {
-	this->transformMatrix = glm::rotate(this->transformMatrix, amount,glm::vec3(1,0,0));
+	this->transformMatrix = glm::rotate(this->transformMatrix, amount, this->forwardVector());
+}
+
+//Rotate around absolute axis
+void Transform::rotateX(float amount) {
+	this->transformMatrix = glm::rotate(this->transformMatrix, amount, glm::vec3(1,0,0));
+}
+void Transform::rotateY(float amount) {
+	this->transformMatrix = glm::rotate(this->transformMatrix, amount,  glm::vec3(0,1,0));
+}
+void Transform::rotateZ(float amount) {
+	this->transformMatrix = glm::rotate(this->transformMatrix, amount, glm::vec3(0,0,1));
 }
 
 
 glm::vec3 Transform::forwardVector() {
-	return (glm::vec3)(this->transformMatrix * glm::vec4(1,0,0,0));
+	return (glm::vec3)(this->transformMatrix * glm::vec4(0,0,1,0));
 }
 glm::vec3 Transform::sideVector(){
 	return (glm::vec3)(this->transformMatrix * glm::vec4(1,0,0,0));
 }
 glm::vec3 Transform::upVector(){
-	return (glm::vec3)(this->transformMatrix * glm::vec4(1,0,0,0));
+	return (glm::vec3)(this->transformMatrix * glm::vec4(0,1,0,0));
 }

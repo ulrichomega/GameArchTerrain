@@ -47,6 +47,11 @@ public:
 	void rotateP(float amount);	//around Z axis
 	void rotateR(float amount);	//around X axis
 
+	//Rotate around absolute axis
+	void rotateX(float amount);	
+	void rotateY(float amount);	
+	void rotateZ(float amount);	
+
 	//Various vectors of the transform
 	glm::vec3 forwardVector();
 	glm::vec3 sideVector();

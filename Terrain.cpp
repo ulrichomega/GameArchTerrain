@@ -21,5 +21,5 @@ Terrain::~Terrain(void)
 }
 
 void Terrain::update(double deltaT) {
-	
+
 }

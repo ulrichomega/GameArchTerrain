@@ -44,6 +44,10 @@ void GameEngine::updateTime() {
 void GameEngine::update() {
 	EngineData::update(EngineData::getDeltaTime());
 	EngineData::getActiveCamera()->update(EngineData::getDeltaTime());
+
+	for (int i=0; i<EngineData::getGameObjects()->size(); i++) {
+		EngineData::getGameObjects()->at(i)->update(EngineData::getDeltaTime());
+	}
 }
 
 void GameEngine::draw() {
