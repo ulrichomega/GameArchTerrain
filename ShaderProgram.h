@@ -28,7 +28,22 @@ public:
 
 protected:
 	void loadProgram(void);
+
+	/*Program must:
+		Bind the attribute locations (the "in_-" variables) to vertex attribute locations
+		Call glLinkProgram with the program's programID
+		Assign and keep track of the uniform locations
+	*/
 	virtual void linkProgram(void) = 0;
+	/*Program must:
+		Assume that the vertexAttributeArray is actively bound
+		Enable the Vertex Attributes associated with the AttribLocations from LinkProgram
+		Assign Vertex Attribute Pointers
+	*/
+	virtual void linkVertexAttributes(void) = 0;
+		/*Program must:
+			Update all the uniforms it assigned
+		*/
 	virtual void updateUniforms(void) = 0;
 
 	Mesh* owner;

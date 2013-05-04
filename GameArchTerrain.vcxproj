@@ -23,6 +23,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UtilityFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicShaderProgram.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UtilityFunctions.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>

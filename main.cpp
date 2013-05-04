@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "GameEngine.h"
+#include "UtilityFunctions.h"
 
 //Globals
 GameEngine engine;
@@ -31,6 +32,7 @@ void setupGLFWCalls() {
 	glfwSetMouseButtonCallback( *handleMouseCaller );
 	glfwSetMousePosCallback( *handleMousePosCaller );
 	glfwSetMouseWheelCallback( *handleMouseWheelCaller );
+	checkGLError("Could not bind input callbacks");
 }
 
 void GLFWCALL handleKeysCaller(int key, int action) {

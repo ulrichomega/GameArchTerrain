@@ -35,6 +35,6 @@ private:
 	GLuint samplerUniform;
 
 	void linkProgram(void);
-
+	void linkVertexAttributes(void);
 };
 

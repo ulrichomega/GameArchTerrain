@@ -1,5 +1,5 @@
 #include "shader.h"
-
+#include "UtilityFunctions.h"
 
 shader::shader(void)
 {
@@ -36,13 +36,15 @@ void shader::LoadShader(const char* filename, GLenum shaderType)
 			{
 				glsl_source[file_size] = '\0';
                 const GLchar* glsl_source_c = glsl_source;
-				fprintf(stderr, "Source: %s\n", glsl_source_c);
+				//We could print the whole shader out, but let's not
+				//fprintf(stderr, "Source: %s\n", glsl_source_c);
 
 				if (0 != (shader_id = glCreateShader(shaderType)))
 				{
 					glShaderSource(shader_id, 1, &glsl_source_c, NULL);
 					glCompileShader(shader_id);
-					fprintf(stderr,"Could not compile the shader");
+					
+					checkGLError("Could not compile shader");
 				}
 				else
 					fprintf(stderr, "ERROR: Could not create the shader.\n");
@@ -61,4 +63,25 @@ void shader::LoadShader(const char* filename, GLenum shaderType)
 		fprintf(stderr, "ERROR: Could not open file %s\n", filename);
 
 	this->shaderID = shader_id;
+
+	this->checkShader();
+}
+
+void shader::checkShader() {
+	GLint status;
+	//lGetShaderiv gets a particular parameter of the shader
+	glGetShaderiv(this->shaderID, GL_COMPILE_STATUS, &status);
+	if (status == GL_FALSE) {
+		int loglen;
+		char logbuffer[1000];
+		//there's also a corresponding glGetProgramInfoLog function for the linked program object
+		glGetShaderInfoLog(this->shaderID, sizeof(logbuffer), &loglen, logbuffer);
+		fprintf(stderr, "OpenGL Shader Compile Error:\n%.*s", loglen, logbuffer);
+	} else {
+		int loglen;
+		char logbuffer[1000];
+		glGetShaderInfoLog(this->shaderID, sizeof(logbuffer), &loglen, logbuffer);
+		fprintf(stderr, "OpenGL Shader Compile OK:\n%.*s", loglen, logbuffer);
+	}
+
 }

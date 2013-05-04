@@ -29,5 +29,6 @@ protected:
 	GLuint shaderID;
 private:
 	void LoadShader(const char* filename, GLenum shaderType);
+	void checkShader();
 };
 

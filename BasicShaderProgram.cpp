@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "EngineData.h"
 #include "Camera.h"
+#include "UtilityFunctions.h"
 
 BasicShaderProgram::BasicShaderProgram(void)
 {
@@ -12,7 +13,7 @@ BasicShaderProgram::BasicShaderProgram(void)
 BasicShaderProgram::BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader)
 	: ShaderProgram(newOwner, fragmentShader, vertexShader)
 {
-	this->loadProgram();
+	this->linkProgram();
 }
 
 
@@ -26,18 +27,40 @@ void BasicShaderProgram::linkProgram(void) {
 	glBindAttribLocation( this->programID, 0, "in_Position");
 	glBindAttribLocation( this->programID, 1, "in_Tex");
 	glBindAttribLocation( this->programID, 2, "in_Normal");
+	checkGLError( "Could not bind vertex Attribute Locations");
 
 	//Link the uniform variables
 	glLinkProgram( this->programID);
+	checkGLError("Could not Link the Shader Program");
 
 	this->modelMatrixUniform = glGetUniformLocation( this->programID, "ModelMatrix");
 	this->viewMatrixUniform = glGetUniformLocation( this->programID, "ViewMatrix");
 	this->projectionMatrixUniform = glGetUniformLocation( this->programID, "ProjectionMatrix");
 	this->samplerUniform = glGetUniformLocation( this->programID, "s_tex" );
+	checkGLError("Could not bind uniforms");
+}
+
+void BasicShaderProgram::linkVertexAttributes() {
+	
+	//Bind the vertex attributes
+	glEnableVertexAttribArray(0);
+	checkGLError("Could not enable Vertex Attributes1");
+	glEnableVertexAttribArray(1);
+	checkGLError("Could not enable Vertex Attributes2");
+	glEnableVertexAttribArray(2);
+	checkGLError("Could not enable Vertex Attributes3");
+	
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex,position));
+	checkGLError("Could not set the Vertex Attribute1");
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex,uvPos));
+	checkGLError("Could not set the Vertex Attribute2");
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex,normal));
+	checkGLError("Could not set the Vertex Attribute3");
 }
 
 void BasicShaderProgram::updateUniforms(void) {
 	glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(this->owner->getTransform()->transformMatrix));
 	glUniformMatrix4fv(this->viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(EngineData::getActiveCamera()->transform.transformMatrix));
 	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(EngineData::getActiveCamera()->ProjectionMatrix));
+	checkGLError("Could not update uniforms");
 }

@@ -3,6 +3,7 @@
 #include "EngineData.h"
 #include "GameObject.h"
 #include "BasicShaderProgram.h"
+#include "UtilityFunctions.h"
 
 Mesh::Mesh(void) 
 {
@@ -11,8 +12,8 @@ Mesh::Mesh(void)
 Mesh::Mesh(GameObject* owner)
 {
 	this->owner = owner;
-	EngineData::addMesh(this);
 	this->createMesh();
+	EngineData::addMesh(this);
 }
 
 
@@ -24,11 +25,17 @@ Mesh::~Mesh(void)
 
 void Mesh::draw() {
 	this->shader->updateUniforms();
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
 	glBindVertexArray(this->vertexBufferID);
+	checkGLError("Could not bind buffers to be active");
+
+	glUseProgram(this->shader->programID);
+	checkGLError("Could not use shader program");
 
 	glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, (GLvoid*)0);
-	std::cout << "I'M BEING DRAWN." << std::endl;
+	checkGLError("Could not draw mesh");
+	std::cout << "Finished drawing a mesh" << std::endl;
 }
 
 void Mesh::createMesh() {
@@ -51,33 +58,34 @@ void Mesh::createBuffers() {
 	//Generate Vertex Array Object
 	glGenVertexArrays(1, &this->vertexArrayID);
 	glBindVertexArray(this->vertexArrayID);
-
-	//Bind the vertex attributes
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0,3, GL_FLOAT, GL_FALSE, sizeof(this->vertices[0]), (GLvoid*)offsetof(vertex,position));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1,2, GL_FLOAT, GL_FALSE, sizeof(this->vertices[0]), (GLvoid*)offsetof(vertex,uvPos));
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2,3, GL_FLOAT, GL_FALSE, sizeof(this->vertices[0]), (GLvoid*)offsetof(vertex,normal));
-
+	checkGLError("Could not generate and bind VertexArray");
+	
 	//Generate and fill vertex buffer object
 	glGenBuffers(1, &this->vertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID);
+	checkGLError("Could not generate the VertexBuffer");
 	glBufferData(GL_ARRAY_BUFFER, (sizeof(vertex)*this->vertices.size()), this->vertices.data(), GL_STATIC_DRAW);
+	checkGLError("Could not fill VertexBuffer");
+
+	this->shader->linkVertexAttributes();
 
 	glGenBuffers(1, &this->vertexIndexID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexBufferID);
+	checkGLError("Could not generate the VertexIndexBuffer");
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), this->vertexIndices.data(), GL_STATIC_DRAW);
+	checkGLError("Could not fill the VertexIndexBuffer");
 }
 void Mesh::createTexture(std::string filename) {
 	glGenTextures(1, &this->textureID);
 	glBindTexture(GL_TEXTURE_2D, this->textureID);
+	checkGLError("Could not generate and bind the texture");
 
 	//Note, the below should be fully customizable, but today is not that day
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	checkGLError("Could not set Texture parameters");
 
 	//Load texture in and create mipmaps
 	if (!glfwLoadTexture2D(filename.c_str(),0)) {
@@ -85,6 +93,7 @@ void Mesh::createTexture(std::string filename) {
 		throw "Could not load texture";
 	}
 	glGenerateMipmap(GL_TEXTURE_2D);
+	checkGLError("Could not generate mipmaps");
 }
 
 //Loads an OBJ file into this mesh
