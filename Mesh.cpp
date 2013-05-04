@@ -41,6 +41,8 @@ void Mesh::draw() {
 
 	//Unbind program and buffer
 	glUseProgram(0);
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	glBindVertexArray(0);
 }
 
@@ -76,9 +78,6 @@ void Mesh::createBuffers() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), (GLvoid*)&this->vertexIndices[0], GL_STATIC_DRAW);
 	checkGLError("Could not fill the VertexIndexBuffer");
 
-	glBindBuffer(GL_ARRAY_BUFFER,0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-
 	//Generate Vertex Array Object
 	glGenVertexArrays(1, &this->vertexArrayID);
 	glBindVertexArray(this->vertexArrayID);
@@ -88,7 +87,9 @@ void Mesh::createBuffers() {
 	this->shader->linkVertexAttributes();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
 
-	//Unbind the buffer
+	//Unbind the buffers
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	glBindVertexArray(0);
 }
 void Mesh::createTexture(std::string filename) {

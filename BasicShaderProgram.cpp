@@ -56,8 +56,6 @@ void BasicShaderProgram::linkVertexAttributes() {
 }
 
 void BasicShaderProgram::updateUniforms(void) {
-	glUseProgram(this->programID);
-
 	glm::mat4 modelMatrix = *this->owner->getTransform()->getTransformMatrix();
 	glm::mat4 viewMatrix = *EngineData::getActiveCamera()->transform.getTransformMatrix();
 	glm::mat4 projectionMatrix = EngineData::getActiveCamera()->ProjectionMatrix;
