@@ -30,5 +30,11 @@ private:
 	bool moving;
 	glm::vec3 velocity;
 	const float maxVelocity;
+
+	const float rotateHSpeed;
+	const float rotatePSpeed;
+
+	void updateMove(double deltaT);
+	void updateRotate(double deltaT);
 };
 

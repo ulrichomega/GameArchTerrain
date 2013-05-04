@@ -40,10 +40,17 @@ private:
 	static double deltaTime;
 	static double startTime;
 
-	static std::map<std::string,int> keyMap;
+	//Game Objects and such
 	static std::vector<Mesh*> drawMeshes;
 	static std::vector<GameObject*> gameObjects;
+	
+	//Input
+	static std::map<std::string,int> keyMap;
+	static glm::vec2 mousePosCurrent;
+	static glm::vec2 mousePosPast;
+	static glm::vec2 mouseDelta;
 
+	//Currently active objects
 	static Camera* activeCamera;
 
 	static void readSettings();
@@ -55,6 +62,8 @@ protected:
 	static void terminate();
 	//Getters and Setters 
 public:
+	static void update(double deltaT);
+
 	//Note: Set does not resize window and will lead to shenanigans if called
 	static void setwindowHeight(int amount) {
 		windowHeight = amount;
@@ -120,5 +129,13 @@ public:
 	static void addGameObject(GameObject* objectToAdd);
 	static std::vector<GameObject*>* getGameObjects();
 	static void removeGameObject (GameObject* objectToRemove);
+
+	static glm::vec2 getMousePos();
+	static glm::vec2 getMouseDelta();
+	static void setMousePos(int x, int y) {
+		EngineData::mousePosPast = EngineData::mousePosCurrent;
+		EngineData::mousePosCurrent = glm::vec2(x,y);
+		EngineData::mouseDelta = EngineData::mousePosCurrent - EngineData::mousePosPast;
+	}
 };
 

@@ -7,6 +7,9 @@ Camera::Camera(void) : maxVelocity(10.0f)
 
 	this->transform.setTransformMatrix( glm::lookAt(glm::vec3(0.0, 0.0, 15.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	this->velocity = glm::vec3(0.0f,0.0f,0.0f);
+
+	this->rotateHSpeed = 10.0f;
+	this->rotatePSpeed = 10.0f;
 }
 
 
@@ -15,7 +18,12 @@ Camera::~Camera(void)
 }
 
 void Camera::update(double deltaT) {
-	//Construct a velocity vector that will be added to the current velocity
+	this->updateMove(deltaT);
+	this->updateRotate(deltaT);
+}
+
+void Camera::updateMove(double deltaT) {
+		//Construct a velocity vector that will be added to the current velocity
 	glm::vec3 additionalVelocity(0.0f,0.0f,0.0f);
 	if (GLFW_PRESS == glfwGetKey(EngineData::getActionKey("forward"))) {
 		additionalVelocity += glm::vec3(0.0f,0.0f,1.0f*deltaT);
@@ -45,6 +53,15 @@ void Camera::update(double deltaT) {
 		}
 	}
 	this->transform.moveRelativeVec(this->velocity);
+
 	//std::cout << "Moving camera at (" << this->velocity.x << ", " 
 	//	<< this->velocity.y << ", " << this->velocity.z << ")" << std::endl;
+
+}
+
+void Camera::updateRotate(double deltaT){
+	glm::vec2 mouseDelta = EngineData::getMouseDelta();
+
+	this->transform.rotateH(mouseDelta.x*deltaT);
+	this->transform.rotateP(mouseDelta.y*deltaT);
 }

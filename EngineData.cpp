@@ -18,6 +18,10 @@ std::vector<Mesh*> EngineData::drawMeshes;
 std::vector<GameObject*> EngineData::gameObjects;
 Camera* EngineData::activeCamera;
 
+glm::vec2 EngineData::mousePosCurrent;
+glm::vec2 EngineData::mousePosPast;
+glm::vec2 EngineData::mouseDelta;
+
 EngineData::EngineData(void)
 {
 }
@@ -47,6 +51,14 @@ void EngineData::updateTime() {
 	pastTime = currentTime;
 	currentTime = glfwGetTime();
 	deltaTime = currentTime - pastTime;
+}
+
+//Called every frame
+void EngineData::update(double deltaT) {
+	//Update mouse position and delta
+	int x, y;
+	glfwGetMousePos(&x,&y);
+	EngineData::setMousePos(x,y);
 }
 
 //Will: Read in settings from file 
@@ -94,3 +106,9 @@ void EngineData::removeGameObject (GameObject* objectToRemove) {
 		EngineData::gameObjects.end(), objectToRemove));
 }
 
+glm::vec2 EngineData::getMousePos(){
+	return EngineData::mousePosCurrent;
+}
+glm::vec2 EngineData::getMouseDelta(){
+	return EngineData::mouseDelta;
+}

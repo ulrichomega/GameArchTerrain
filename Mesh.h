@@ -41,6 +41,7 @@ public:
 	void draw();
 	friend class ShaderProgram;
 	friend class BasicShaderProgram;	//Isn't friendship inherited?
+	friend class NormalShaderProgram;
 
 protected:
 	Transform* getTransform();

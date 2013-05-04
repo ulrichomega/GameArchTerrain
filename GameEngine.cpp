@@ -42,6 +42,7 @@ void GameEngine::updateTime() {
 }
 
 void GameEngine::update() {
+	EngineData::update(EngineData::getDeltaTime());
 	EngineData::getActiveCamera()->update(EngineData::getDeltaTime());
 }
 
@@ -104,7 +105,7 @@ void GameEngine::handleMouse(int button, int action) {
 
 }
 void GameEngine::handleMousePos(int x, int y) {
-
+		
 }
 void GameEngine::handleMouseWheel(int position) {
 
