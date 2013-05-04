@@ -89,9 +89,9 @@ void GameEngine::initializeOpenGL() {
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
 	checkGLError("Could not initialize openGL standard values");
 }
 

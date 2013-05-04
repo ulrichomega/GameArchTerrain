@@ -42,12 +42,13 @@ void BasicShaderProgram::linkProgram(void) {
 
 void BasicShaderProgram::linkVertexAttributes() {
 	
-	//Bind the vertex attributes
+	//Active the vertex attributes
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	checkGLError("Could not enable Vertex Attributes");
 	
+	//Set the attribute offsets
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(sizeof(float)*3));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(sizeof(float)*3+sizeof(float)*2));
@@ -67,4 +68,11 @@ void BasicShaderProgram::updateUniforms(void) {
 	checkGLError("Could not update uniforms2");
 	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	checkGLError("Could not update uniforms3");
+
+	
+	//Active the vertex attributes
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	checkGLError("Could not enable Vertex Attributes");
 }

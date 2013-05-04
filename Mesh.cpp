@@ -28,7 +28,9 @@ void Mesh::draw() {
 	checkGLError("Could not use shader program");
 	
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
-	glBindVertexArray(this->vertexBufferID);
+	glBindVertexArray(this->vertexArrayID);
+	glBindBuffer(GL_ARRAY_BUFFER,this->vertexBufferID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->vertexIndexID);
 	checkGLError("Could not bind buffers to be active");
 
 	this->shader->updateUniforms();
@@ -67,12 +69,21 @@ void Mesh::createBuffers() {
 	glBufferData(GL_ARRAY_BUFFER, (sizeof(this->vertices[0])*this->vertices.size()), (GLvoid*)&this->vertices[0], GL_STATIC_DRAW);
 	checkGLError("Could not fill VertexBuffer");
 	
+	int vbS, viS;
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vbS);
+	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &viS);
+	std::cout << "vbs: " << vbS << std::endl << "vis: " << viS << std::endl;
+
 	//Generate and fill the vertex index buffer
 	glGenBuffers(1, &this->vertexIndexID);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexBufferID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
 	checkGLError("Could not generate the VertexIndexBuffer");
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), (GLvoid*)this->vertexIndices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), (GLvoid*)&this->vertexIndices[0], GL_STATIC_DRAW);
 	checkGLError("Could not fill the VertexIndexBuffer");
+	
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vbS);
+	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &viS);
+	std::cout << "vbs: " << vbS << std::endl << "vis: " << viS << std::endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
@@ -81,6 +92,10 @@ void Mesh::createBuffers() {
 	glGenVertexArrays(1, &this->vertexArrayID);
 	glBindVertexArray(this->vertexArrayID);
 	checkGLError("Could not generate and bind VertexArray");
+	
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vbS);
+	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &viS);
+	std::cout << "vbs: " << vbS << std::endl << "vis: " << viS << std::endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID);
 	this->shader->linkVertexAttributes();
@@ -199,19 +214,74 @@ void Mesh::loadOBJ(std::string fileName) {
 
 	}
 
-	this->vertices.clear();
-	this->vertexIndices.clear();
+	//The below code is preserved in memoriam of 9 hours spent trying to fix a typo
 
-	vertex tempVert = {{1.0f,1.0f,1.0f},{1.0f,1.0f},{1.0f,1.0f,1.0f}};
-	this->vertices.push_back(tempVert);
-	vertex tempVert2 = {{1.0f,1.0f,0.0f},{1.0f,1.0f},{1.0f,1.0f,1.0f}};
-	this->vertices.push_back(tempVert2);
-	vertex tempVert3 = {{1.0f,0.0f,1.0f},{1.0f,1.0f},{1.0f,1.0f,1.0f}};
-	this->vertices.push_back(tempVert3);
+	//this->vertices.clear();
+	//this->vertexIndices.clear();
 
-	this->vertexIndices.push_back(0);
-	this->vertexIndices.push_back(1);
-	this->vertexIndices.push_back(2);
+	//vertex tempVert = {{50.0f,50.0f,50.0f},{1.0f,1.0f},{0.0f,1.0f,1.0f}};
+	//this->vertices.push_back(tempVert);
+	//vertex tempVert2 = {{50.0f,50.0f,-50.0f},{1.0f,1.0f},{0.0f,1.0f,1.0f}};
+	//this->vertices.push_back(tempVert2);
+	//vertex tempVert3 = {{50.0f,-50.0f,50.0f},{1.0f,1.0f},{0.0f,1.0f,1.0f}};
+	//this->vertices.push_back(tempVert3);
+	//vertex tempVert99 = {{50.0f,-50.0f,-50.0f},{1.0f,1.0f},{0.0f,1.0f,1.0f}};
+	//this->vertices.push_back(tempVert99);
+	//
+	//vertex tempVert4 = {{-50.0f,50.0f,50.0f},{1.0f,1.0f},{0.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert4);
+	//vertex tempVert5 = {{-50.0f,50.0f,-50.0f},{1.0f,1.0f},{0.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert5);
+	//vertex tempVert6 = {{-50.0f,-50.0f,50.0f},{1.0f,1.0f},{0.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert6);
+	//vertex tempVert7 = {{-50.0f,-50.0f,-50.0f},{1.0f,1.0f},{0.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert7);
+	//
+	//vertex tempVert8 = {{50.0f,50.0f,50.0f},{1.0f,1.0f},{0.0f,1.0f,0.0f}};
+	//this->vertices.push_back(tempVert8);
+	//vertex tempVert9 = {{-50.0f,50.0f,50.0f},{1.0f,1.0f},{0.0f,1.0f,0.0f}};
+	//this->vertices.push_back(tempVert9);
+	//vertex tempVert13 = {{50.0f,-50.0f,50.0f},{1.0f,1.0f},{0.0f,1.0f,0.0f}};
+	//this->vertices.push_back(tempVert13);
+	//vertex tempVert14 = {{-50.0f,-50.0f,50.0f},{1.0f,1.0f},{0.0f,1.0f,0.0f}};
+	//this->vertices.push_back(tempVert14);
+	//
+	//vertex tempVert23 = {{50.0f,50.0f,-50.0f},{1.0f,1.0f},{1.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert23);
+	//vertex tempVert33 = {{-50.0f,50.0f,-50.0f},{1.0f,1.0f},{1.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert33);
+	//vertex tempVert43 = {{50.0f,-50.0f,-50.0f},{1.0f,1.0f},{1.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert43);
+	//vertex tempVert53 = {{-50.0f,-50.0f,-50.0f},{1.0f,1.0f},{1.0f,0.0f,1.0f}};
+	//this->vertices.push_back(tempVert53);
+
+	//this->vertexIndices.push_back(2);
+	//this->vertexIndices.push_back(0);
+	//this->vertexIndices.push_back(1);
+	//this->vertexIndices.push_back(2);
+	//this->vertexIndices.push_back(3);
+	//this->vertexIndices.push_back(1);
+	//
+	//this->vertexIndices.push_back(6);
+	//this->vertexIndices.push_back(4);
+	//this->vertexIndices.push_back(5);
+	//this->vertexIndices.push_back(6);
+	//this->vertexIndices.push_back(7);
+	//this->vertexIndices.push_back(5);
+	//
+	//this->vertexIndices.push_back(10);
+	//this->vertexIndices.push_back(8);
+	//this->vertexIndices.push_back(9);
+	//this->vertexIndices.push_back(10);
+	//this->vertexIndices.push_back(11);
+	//this->vertexIndices.push_back(9);
+	//
+	//this->vertexIndices.push_back(14);
+	//this->vertexIndices.push_back(12);
+	//this->vertexIndices.push_back(13);
+	//this->vertexIndices.push_back(14);
+	//this->vertexIndices.push_back(15);
+	//this->vertexIndices.push_back(13);
 }
 
 Transform* Mesh::getTransform() {
