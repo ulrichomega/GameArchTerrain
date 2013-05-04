@@ -2,6 +2,7 @@
 
 #include "EngineData.h"
 #include "Mesh.h"
+#include "Camera.h"
 #include "UtilityFunctions.h"
 
 GameEngine::GameEngine(void)
@@ -41,10 +42,11 @@ void GameEngine::updateTime() {
 }
 
 void GameEngine::update() {
-
+	EngineData::getActiveCamera()->update(EngineData::getDeltaTime());
 }
 
 void GameEngine::draw() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for (int i = 0; i < EngineData::getMeshesToDraw()->size(); i++) {
 		EngineData::getMeshesToDraw()->at(i)->draw();
 	}

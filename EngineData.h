@@ -104,6 +104,7 @@ public:
 	*/
 	static int getActionKey(std::string keyToGet) {
 		if (EngineData::keyMap.find(keyToGet) != EngineData::keyMap.end()) {
+			//std::cout << "Giving out key: " << EngineData::keyMap[keyToGet] << std::endl;
 			return EngineData::keyMap[keyToGet];
 		}
 		else {

@@ -24,6 +24,7 @@ Mesh::~Mesh(void)
 }
 
 void Mesh::draw() {
+	//checkGLError("fjkdlsafsa");
 	this->shader->updateUniforms();
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
@@ -55,10 +56,6 @@ void Mesh::createShader() {
 }
 //Creates the Vertex Array Object, and Vertex Buffer Objects for the mesh
 void Mesh::createBuffers() {
-	//Generate Vertex Array Object
-	glGenVertexArrays(1, &this->vertexArrayID);
-	glBindVertexArray(this->vertexArrayID);
-	checkGLError("Could not generate and bind VertexArray");
 	
 	//Generate and fill vertex buffer object
 	glGenBuffers(1, &this->vertexBufferID);
@@ -66,14 +63,20 @@ void Mesh::createBuffers() {
 	checkGLError("Could not generate the VertexBuffer");
 	glBufferData(GL_ARRAY_BUFFER, (sizeof(vertex)*this->vertices.size()), this->vertices.data(), GL_STATIC_DRAW);
 	checkGLError("Could not fill VertexBuffer");
-
-	this->shader->linkVertexAttributes();
-
+	
+	//Generate and fill the vertex index buffer
 	glGenBuffers(1, &this->vertexIndexID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexBufferID);
 	checkGLError("Could not generate the VertexIndexBuffer");
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), this->vertexIndices.data(), GL_STATIC_DRAW);
 	checkGLError("Could not fill the VertexIndexBuffer");
+	
+	//Generate Vertex Array Object
+	glGenVertexArrays(1, &this->vertexArrayID);
+	glBindVertexArray(this->vertexArrayID);
+	checkGLError("Could not generate and bind VertexArray");
+
+	this->shader->linkVertexAttributes();
 }
 void Mesh::createTexture(std::string filename) {
 	glGenTextures(1, &this->textureID);

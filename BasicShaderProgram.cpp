@@ -59,8 +59,16 @@ void BasicShaderProgram::linkVertexAttributes() {
 }
 
 void BasicShaderProgram::updateUniforms(void) {
-	glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(this->owner->getTransform()->transformMatrix));
-	glUniformMatrix4fv(this->viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(EngineData::getActiveCamera()->transform.transformMatrix));
-	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(EngineData::getActiveCamera()->ProjectionMatrix));
-	checkGLError("Could not update uniforms");
+	glUseProgram(this->programID);
+
+	glm::mat4 modelMatrix = *this->owner->getTransform()->getTransformMatrix();
+	glm::mat4 viewMatrix = *EngineData::getActiveCamera()->transform.getTransformMatrix();
+	glm::mat4 projectionMatrix = EngineData::getActiveCamera()->ProjectionMatrix;
+
+	glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	checkGLError("Could not update uniforms1");
+	glUniformMatrix4fv(this->viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	checkGLError("Could not update uniforms2");
+	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	checkGLError("Could not update uniforms3");
 }

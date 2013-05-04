@@ -53,10 +53,10 @@ void EngineData::readSettings() {
 	windowHeight = 600;
 	windowWidth = 400;
 
-	keyMap["forward"] = 'w';
-	keyMap["back"] = 's';
-	keyMap["left"] = 'a';
-	keyMap["right"] = 'd';
+	keyMap["forward"] = GLFW_KEY_UP;
+	keyMap["back"] = GLFW_KEY_DOWN;
+	keyMap["left"] = GLFW_KEY_LEFT;
+	keyMap["right"] = GLFW_KEY_RIGHT;
 }
 
 void EngineData::terminate() {
