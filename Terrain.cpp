@@ -18,6 +18,7 @@ Terrain::Terrain(void)
 
 Terrain::~Terrain(void)
 {
+	delete this->mesh;
 }
 
 void Terrain::update(double deltaT) {
