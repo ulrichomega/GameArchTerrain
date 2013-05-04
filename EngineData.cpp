@@ -36,6 +36,9 @@ void EngineData::initializeData() {
 
 	EngineData::activeCamera = new Camera();
 	EngineData::gameObjects.push_back(new Terrain());
+	EngineData::gameObjects.push_back(new Terrain());
+
+	EngineData::gameObjects[1]->transform.transformMatrix = glm::translate(EngineData::gameObjects[1]->transform.transformMatrix, glm::vec3(10.0f,0.0f,0.0f));
 
 	EngineData::readSettings();
 }

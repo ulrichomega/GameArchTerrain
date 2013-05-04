@@ -68,11 +68,6 @@ void Mesh::createBuffers() {
 	checkGLError("Could not generate the VertexBuffer");
 	glBufferData(GL_ARRAY_BUFFER, (sizeof(this->vertices[0])*this->vertices.size()), (GLvoid*)&this->vertices[0], GL_STATIC_DRAW);
 	checkGLError("Could not fill VertexBuffer");
-	
-	int vbS, viS;
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vbS);
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &viS);
-	std::cout << "vbs: " << vbS << std::endl << "vis: " << viS << std::endl;
 
 	//Generate and fill the vertex index buffer
 	glGenBuffers(1, &this->vertexIndexID);
@@ -80,10 +75,6 @@ void Mesh::createBuffers() {
 	checkGLError("Could not generate the VertexIndexBuffer");
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(GLuint)*this->vertexIndices.size()), (GLvoid*)&this->vertexIndices[0], GL_STATIC_DRAW);
 	checkGLError("Could not fill the VertexIndexBuffer");
-	
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vbS);
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &viS);
-	std::cout << "vbs: " << vbS << std::endl << "vis: " << viS << std::endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
@@ -92,10 +83,6 @@ void Mesh::createBuffers() {
 	glGenVertexArrays(1, &this->vertexArrayID);
 	glBindVertexArray(this->vertexArrayID);
 	checkGLError("Could not generate and bind VertexArray");
-	
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vbS);
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &viS);
-	std::cout << "vbs: " << vbS << std::endl << "vis: " << viS << std::endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID);
 	this->shader->linkVertexAttributes();

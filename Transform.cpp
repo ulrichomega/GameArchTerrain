@@ -40,15 +40,15 @@ These functions work on the following steps
 3. Translate the transformMatrix by the rotated vector
 */
 void Transform::moveForward(float amount) {
-	glm::vec3 forwardVector = (glm::vec3)(this->transformMatrix * glm::vec4(0,0,1,0));
+	glm::vec3 forwardVector = (glm::vec3)(this->transformMatrix * glm::vec4(0,0,amount,0));
 	this->transformMatrix = glm::translate(this->transformMatrix,forwardVector);
 }
 void Transform::moveUp(float amount) {
-	glm::vec3 upVector = (glm::vec3)(this->transformMatrix * glm::vec4(0,1,0,0));
+	glm::vec3 upVector = (glm::vec3)(this->transformMatrix * glm::vec4(0,amount,0,0));
 	this->transformMatrix = glm::translate(this->transformMatrix,upVector);
 }
 void Transform::moveSide(float amount) {
-	glm::vec3 sideVector = (glm::vec3)(this->transformMatrix * glm::vec4(1,0,0,0));
+	glm::vec3 sideVector = (glm::vec3)(this->transformMatrix * glm::vec4(amount,0,0,0));
 	this->transformMatrix = glm::translate(this->transformMatrix,sideVector);
 }
 void Transform::moveRelativeVec(glm::vec3 translation){

@@ -18,16 +18,16 @@ void Camera::update(double deltaT) {
 	//Construct a velocity vector that will be added to the current velocity
 	glm::vec3 additionalVelocity(0.0f,0.0f,0.0f);
 	if (GLFW_PRESS == glfwGetKey(EngineData::getActionKey("forward"))) {
-		additionalVelocity += glm::vec3(1.0f*deltaT,0.0f,0.0f);
+		additionalVelocity += glm::vec3(0.0f,0.0f,1.0f*deltaT);
 	}
 	if (GLFW_PRESS == glfwGetKey(EngineData::getActionKey("back"))) {
-		additionalVelocity += glm::vec3(-1.0f*deltaT,0.0f,0.0f);
-	}
-	if (GLFW_PRESS == glfwGetKey(EngineData::getActionKey("left"))) {
 		additionalVelocity += glm::vec3(0.0f,0.0f,-1.0f*deltaT);
 	}
+	if (GLFW_PRESS == glfwGetKey(EngineData::getActionKey("left"))) {
+		additionalVelocity += glm::vec3(1.0f*deltaT,0.0f,0.0f);
+	}
 	if (GLFW_PRESS == glfwGetKey(EngineData::getActionKey("right"))) {
-		additionalVelocity += glm::vec3(0.0f,0.0f,1.0f*deltaT);
+		additionalVelocity += glm::vec3(-1.0f*deltaT,0.0f,0.0f);
 	}
 
 	if (additionalVelocity.x == 0.0f && additionalVelocity.y == 0.0f
