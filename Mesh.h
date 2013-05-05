@@ -30,6 +30,8 @@ class Transform;
 	Meshes register themselves with EngineData so that they may be rendered.
 	A Mesh requires a GameObject to exist.
 */
+//Note: plans are in place to make this more modular (i.e. mesh can have a normal or a diffuse or both).
+//For now, for the sake of speed, meshes have diffuse and normalmaps
 class Mesh
 {
 public:
@@ -54,6 +56,7 @@ private:
 	GLuint vertexBufferID;
 	GLuint vertexIndexID;
 	GLuint textureID;
+	GLuint normalMapID;
 
 	std::vector<vertex> vertices;
 	std::vector<GLuint> vertexIndices;
@@ -63,6 +66,7 @@ private:
 	void createShader();
 	void createBuffers();
 	void createTexture(std::string filename);
+	void createNormalMap(std::string filename);
 	void calculateTangents();
 	
 };

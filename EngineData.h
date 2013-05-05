@@ -21,6 +21,7 @@
 class Mesh;
 class Camera;
 class GameObject;
+class Light;
 
 class EngineData
 {
@@ -43,6 +44,7 @@ private:
 	//Game Objects and such
 	static std::vector<Mesh*> drawMeshes;
 	static std::vector<GameObject*> gameObjects;
+	static Light* activeLight; //Yes, only one light for now
 	
 	//Input
 	static std::map<std::string,int> keyMap;
@@ -129,6 +131,10 @@ public:
 	static void addGameObject(GameObject* objectToAdd);
 	static std::vector<GameObject*>* getGameObjects();
 	static void removeGameObject (GameObject* objectToRemove);
+
+	static Light* getActiveLight() {
+		return EngineData::activeLight;
+	}
 
 	static glm::vec2 getMousePos();
 	static glm::vec2 getMouseDelta();

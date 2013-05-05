@@ -24,7 +24,19 @@ public:
 	ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~ShaderProgram(void);
 
-	void setShader(std::string filename, GLenum shaderType);
+	/*Program must:
+		Link the texture uniform variable specified by type (see below)
+		to glTextureUnit texUnit (GL_TEXTUREi, where i is texUnit) by calling:
+		glUniform1i(*uniform linking to texture type*, texUnit);
+	*/
+	/*
+		Mapping is as follows
+			0 - Diffuse
+			1 - Normal
+			2 - Specular
+			3 - Other
+	*/
+	virtual void setTextureUnit(int typeOfTexture, int texUnit) = 0;
 
 protected:
 	void loadProgram(void);
@@ -59,6 +71,8 @@ protected:
 	Mesh* owner;
 
 	GLuint programID;
+	
+	void setShader(std::string filename, GLenum shaderType);
 
 	shader fragmentShader;
 	shader vertexShader;

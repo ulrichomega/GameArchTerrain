@@ -83,3 +83,8 @@ void BasicShaderProgram::disableVertexAttribArray(void) {
 	glDisableVertexAttribArray(2);
 	checkGLError("Could not enable Vertex Attributes");
 }
+
+//Note, BasicShaderProgram only defines a defusemap
+void BasicShaderProgram::setTextureUnit(int typeOfTexture, int texUnit) {
+	glUniform1i(this->samplerUniform, texUnit);
+}

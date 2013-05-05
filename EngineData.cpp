@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Terrain.h"
+#include "Light.h"
 
 double EngineData::currentTime;
 double EngineData::pastTime;
@@ -21,6 +22,7 @@ Camera* EngineData::activeCamera;
 glm::vec2 EngineData::mousePosCurrent;
 glm::vec2 EngineData::mousePosPast;
 glm::vec2 EngineData::mouseDelta;
+Light* EngineData::activeLight;
 
 EngineData::EngineData(void)
 {
@@ -44,6 +46,8 @@ void EngineData::initializeData() {
 
 	EngineData::gameObjects[1]->transform.transformMatrix = glm::translate(EngineData::gameObjects[1]->transform.transformMatrix, glm::vec3(10.0f,0.0f,0.0f));
 
+	EngineData::activeLight = new Light();
+
 	EngineData::readSettings();
 }
 
@@ -59,6 +63,8 @@ void EngineData::update(double deltaT) {
 	int x, y;
 	glfwGetMousePos(&x,&y);
 	EngineData::setMousePos(x,y);
+
+	EngineData::activeLight->transform.moveForward(1.0f*deltaT);
 }
 
 //Will: Read in settings from file 

@@ -23,19 +23,36 @@ public:
 	NormalShaderProgram(void);
 	NormalShaderProgram(Mesh* newOwner);
 	~NormalShaderProgram(void);
+	
+	void setTextureUnit(int typeOfTexture, int texUnit);
 
 protected:
 	void updateUniforms(void);
+	GLuint samplerUniform;
+	GLuint normalMapUniform;
 
 private:
-	//Uniform locations
+	//Uniform matrix locations
 	GLuint modelMatrixUniform;
 	GLuint viewMatrixUniform;
 	GLuint projectionMatrixUniform;
-	GLuint samplerUniform;
+	GLuint normalMatrixUniform;
+
+	//Vertex Shader uniforms
+	GLuint LightPosUniform;
+	GLuint constAttenuationUniform;
+	GLuint linearAttenUniform;
+	GLuint quadraticAttenUniform;
+
+	//Fragment Shader uniforms
+	GLuint ambientUniform;
+	GLuint diffuseUniform;
+	GLuint specularUniform;
+	GLuint shininessUniform;
 
 	void linkProgram(void);
 	void linkVertexAttributes(void);
+	glm::mat4 calculateNormalMatrix(void);
 	void enableVertexAttribArray(void);
 	void disableVertexAttribArray(void);
 };

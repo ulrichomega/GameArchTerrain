@@ -57,6 +57,9 @@
     <ClCompile Include="NormalShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew.h">
@@ -101,6 +104,9 @@
     <ClInclude Include="NormalShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="GLFW.dll">
@@ -115,10 +121,10 @@
     <None Include="basic.vs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="normalMap.fs">
+    <None Include="normalmapPoint.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="normalMap.vs">
+    <None Include="normalmapPoint.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

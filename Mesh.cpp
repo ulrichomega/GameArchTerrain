@@ -32,8 +32,15 @@ void Mesh::draw() {
 	glBindVertexArray(this->vertexArrayID);
 	glBindBuffer(GL_ARRAY_BUFFER,this->vertexBufferID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->vertexIndexID);
-	glBindTexture(GL_TEXTURE_2D, this->textureID);
 	checkGLError("Could not bind buffers to be active");
+	
+	//Bind textures to gl active textures
+	glActiveTexture(GL_TEXTURE0);	//diffuse
+	glBindTexture(GL_TEXTURE_2D, this->textureID);
+	this->shader->setTextureUnit(0,0);
+	glActiveTexture(GL_TEXTURE1);	//normal
+	glBindTexture(GL_TEXTURE_2D, this->normalMapID);
+	this->shader->setTextureUnit(1,1);
 
 	this->shader->updateUniforms();
 	this->shader->enableVertexAttribArray();
@@ -48,7 +55,14 @@ void Mesh::draw() {
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	glBindVertexArray(0);
+	checkGLError("Could not unbind buffers");
+
+	//Unbind textures
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	checkGLError("Could not unbind textures");
 }
 
 void Mesh::createMesh() {
@@ -56,6 +70,7 @@ void Mesh::createMesh() {
 	this->loadOBJ("data/container.obj");
 	//Note: createTexture will eventually be used by loadOBJ, but today is not that day
 	this->createTexture("data/container_diffuse.tga");
+	this->createNormalMap("data/normal.tga");
 
 	this->createShader();
 
@@ -99,6 +114,27 @@ void Mesh::createBuffers() {
 void Mesh::createTexture(std::string filename) {
 	glGenTextures(1, &this->textureID);
 	glBindTexture(GL_TEXTURE_2D, this->textureID);
+	checkGLError("Could not generate and bind the texture");
+
+	//Note, the below should be fully customizable, but today is not that day
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	checkGLError("Could not set Texture parameters");
+
+	//Load texture in and create mipmaps
+	if (!glfwLoadTexture2D(filename.c_str(),0)) {
+		std::cout << "Could not load texture: " << filename << std::endl;
+		throw "Could not load texture";
+	}
+	glGenerateMipmap(GL_TEXTURE_2D);
+	checkGLError("Could not generate mipmaps");
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+void Mesh::createNormalMap(std::string filename) {
+	glGenTextures(1, &this->normalMapID);
+	glBindTexture(GL_TEXTURE_2D, this->normalMapID);
 	checkGLError("Could not generate and bind the texture");
 
 	//Note, the below should be fully customizable, but today is not that day
@@ -186,8 +222,6 @@ void Mesh::loadOBJ(std::string fileName) {
 					{vertices[vertNum][0],vertices[vertNum][1],vertices[vertNum][2]}, //Position
 					{uvs[uvNum][0],uvs[uvNum][1]}, //UV
 					{normals[normalNum][0],normals[normalNum][1],normals[normalNum][2]},	//Normal
-					{0.0f,0.0f,0.0f},
-					{0.0f,0.0f,0.0f}
 				};
 
 				bool matchFound = false;
@@ -208,7 +242,8 @@ void Mesh::loadOBJ(std::string fileName) {
 		}
 
 	}
-	this->calculateTangents();
+	//Not currently using tangents and bitangents in this math
+	//this->calculateTangents();
 
 	//The below code is preserved in memoriam of 9 hours spent trying to fix a typo
 
@@ -312,13 +347,13 @@ void Mesh::calculateTangents() {
 		//this->vertices[i+0].tangent = {tangent.x,tangent.y,tangent.z};
 		//Assign the calculated tangent and bitangents to the three vertices
 		for (unsigned int j=0; j<3; j++) {
-			this->vertices[i+j].tangent[0] = (GLfloat)tangent[0];
-			this->vertices[i+j].tangent[1] = (GLfloat)tangent[1];
-			this->vertices[i+j].tangent[2] = (GLfloat)tangent[2];
-			
-			this->vertices[i+j].bitangent[0] = (GLfloat)bitangent[0];
-			this->vertices[i+j].bitangent[1] = (GLfloat)bitangent[1];
-			this->vertices[i+j].bitangent[2] = (GLfloat)bitangent[2];
+			//this->vertices[i+j].tangent[0] = (GLfloat)tangent[0];
+			//this->vertices[i+j].tangent[1] = (GLfloat)tangent[1];
+			//this->vertices[i+j].tangent[2] = (GLfloat)tangent[2];
+			//
+			//this->vertices[i+j].bitangent[0] = (GLfloat)bitangent[0];
+			//this->vertices[i+j].bitangent[1] = (GLfloat)bitangent[1];
+			//this->vertices[i+j].bitangent[2] = (GLfloat)bitangent[2];
 		}
 	}
 }

@@ -23,6 +23,7 @@ public:
 	BasicShaderProgram(void);
 	BasicShaderProgram(Mesh* newOwner);
 	~BasicShaderProgram(void);
+	void setTextureUnit(int typeOfTexture, int texUnit);
 
 protected:
 	void updateUniforms(void);
