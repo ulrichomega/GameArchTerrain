@@ -1,40 +1,49 @@
 #version 150
-//Base code from Professor Destefano
+//Code based on http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
 
-in vec4 in_Position;
+in vec3 in_Position;
 in vec2 in_Tex;
-//in vec3 in_Normal; Not using per-vertex normals, using normal maps
+in vec3 in_Normal; //Not using per-vertex normals, using normal maps
+in vec3 in_Tangent;
+in vec3 in_Bitangent;
 
 uniform mat4 ModelMatrix;
 uniform mat4 ViewMatrix;
 uniform mat4 ProjectionMatrix;
 
-uniform vec3 LightPosition;// = vec3(-3.0, 3.0, 3.0); 
-uniform float constantAttenuation;// = 0.5;
-uniform float linearAttenuation;// = 0.01;
-uniform float quadraticAttenuation;// = 0.005;
+uniform vec3 LightPosition;
 
-out vec2 v_tex;
-out vec3 VP;
-out vec3 eyePos;
-out float attenuation;
+out vec2 UV;
+out vec3 Position_worldSpace;
+
+out vec3 LightDirection_tanSpace;
+out vec3 VertexDirection_tanSpace;
 
 void main(void)
 {
-    //eye coordinate position
-    vec3 ecPos = (ViewMatrix * ModelMatrix * in_Position).xyz;
-    eyePos = -normalize(ecPos);
-    
-    //vector from surface to light position
-    VP = vec3(LightPosition - ecPos);
-    //distance from light to surface
-    float d = length(VP);
-    VP = normalize(VP);
-    //compute attenuation
-    attenuation = 1.0 / (constantAttenuation +
-                        linearAttenuation * d +
-                        quadraticAttenuation * d * d);
-    
-	gl_Position = (ProjectionMatrix * ViewMatrix * ModelMatrix) * in_Position;
-	v_tex = in_Tex;
+	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(in_Position,1.0);
+
+	Position_worldSpace = (ModelMatrix * vec4(in_Position, 1.0)).xyz;
+
+	vec3 vertexPos_viewSpace = (ViewMatrix * ModelMatrix * vec4(in_Position, 1.0)).xyz;
+	vec3 VertexDirection_viewSpace = vec3(0.0,0.0,0.0) - vertexPos_viewSpace;
+
+	vec3 LightPos_viewSpace = (ViewMatrix * vec4(LightPosition, 1.0)).xyz;
+	vec3 LightDirection_viewSpace = LightPos_viewSpace + VertexDirection_viewSpace;
+
+	UV = in_Tex;
+	
+	mat3 MV3x3 = mat3(ViewMatrix * ModelMatrix);	//Translates from modelSpace to viewSpace
+	vec3 vertexTangent_viewSpace = MV3x3 * in_Tangent;
+	vec3 vertexBitangent_viewSpace = MV3x3 * in_Bitangent;
+	vec3 vertexNormal_viewSpace = MV3x3 * in_Normal;
+
+	mat3 TBN = transpose(mat3(
+		vertexTangent_viewSpace,
+		vertexBitangent_viewSpace,
+		vertexNormal_viewSpace	
+	));
+
+	LightDirection_tanSpace = TBN * LightDirection_viewSpace;
+	VertexDirection_tanSpace = TBN * VertexDirection_viewSpace;
 }

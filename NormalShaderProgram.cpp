@@ -28,6 +28,8 @@ void NormalShaderProgram::linkProgram(void) {
 	glBindAttribLocation( this->programID, 0, "in_Position");
 	glBindAttribLocation( this->programID, 1, "in_Tex");
 	glBindAttribLocation( this->programID, 2, "in_Normal");
+	glBindAttribLocation( this->programID, 3, "in_Tangent");
+	glBindAttribLocation( this->programID, 4, "in_Bitangent");
 	checkGLError( "Could not bind vertex Attribute Locations");
 
 	//Link the uniform variables
@@ -37,13 +39,10 @@ void NormalShaderProgram::linkProgram(void) {
 	this->modelMatrixUniform = glGetUniformLocation( this->programID, "ModelMatrix");
 	this->viewMatrixUniform = glGetUniformLocation( this->programID, "ViewMatrix");
 	this->projectionMatrixUniform = glGetUniformLocation( this->programID, "ProjectionMatrix");
-	this->normalMatrixUniform = glGetUniformLocation(this->programID, "NormalMatrix");
 
-	this->LightPosUniform = glGetUniformLocation(this->programID, "LightPosition");
-	this->constAttenuationUniform = glGetUniformLocation(this->programID, "constantAttenuation");
-	this->linearAttenUniform = glGetUniformLocation(this->programID, "linearAttenuation");
-	this->quadraticAttenUniform = glGetUniformLocation(this->programID, "quadraticAttenuation");
-	this->shininessUniform = glGetUniformLocation(this->programID, "shininess");
+	this->lightPosUniform = glGetUniformLocation(this->programID, "LightPosition");
+	this->lightColorUniform = glGetUniformLocation(this->programID, "LightColor");
+	this->lightBrightnessUniform = glGetUniformLocation(this->programID, "LightBrightness");
 
 	this->ambientUniform = glGetUniformLocation(this->programID, "ambient");
 	this->diffuseUniform = glGetUniformLocation(this->programID, "diffuse");
@@ -55,18 +54,17 @@ void NormalShaderProgram::linkProgram(void) {
 }
 
 void NormalShaderProgram::linkVertexAttributes() {
-	
-	//Active the vertex attributes
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	checkGLError("Could not enable Vertex Attributes");
+	this->enableVertexAttribArray();
 	
 	//Set the attribute offsets
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, position));
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, uvPos));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, normal));
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, tangent));
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, bitangent));
 	checkGLError("Could not set the Vertex Attribute");
+	
+	this->disableVertexAttribArray();
 }
 
 void NormalShaderProgram::updateUniforms(void) {
@@ -78,26 +76,21 @@ void NormalShaderProgram::updateUniforms(void) {
 	glUniformMatrix4fv(this->modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	glUniformMatrix4fv(this->viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-	glUniformMatrix3fv(this->normalMatrixUniform, 1, GL_FALSE, glm::value_ptr(normalMatrix));
-
+	
 	//Get a vec3 from the light's transform matrix
 	glm::vec3 lightPos = (glm::vec3)(*EngineData::getActiveLight()->transform.getTransformMatrix() * glm::vec4(0.0f,0.0f,0.0f,1.0f));
-	glUniform3fv(this->LightPosUniform, 1, glm::value_ptr(lightPos));
-
-	//Falloff
-	glUniform1f(this->constAttenuationUniform, 0.5f);
-	glUniform1f(this->linearAttenUniform, 0.01f);
-	glUniform1f(this->quadraticAttenUniform, 0.005f);
-
+	glUniform3fv(this->lightPosUniform, 1, glm::value_ptr(lightPos));
+	glUniform3fv(this->lightColorUniform, 1, glm::value_ptr(EngineData::getActiveLight()->color));
+	glUniform1f(this->lightBrightnessUniform, EngineData::getActiveLight()->brightness);
+	
 	glm::vec3 ambient(0.05f,0.05f, 0.05f);
 	glUniform3fv(this->ambientUniform, 1, glm::value_ptr(ambient));
 	glm::vec3 diffuse(0.5f,0.5f, 0.5f);
-	glUniform3fv(this->ambientUniform, 1, glm::value_ptr(diffuse));
+	glUniform3fv(this->diffuseUniform, 1, glm::value_ptr(diffuse));
 	glm::vec3 specular(0.7f,0.7f, 0.7f);
-	glUniform3fv(this->ambientUniform, 1, glm::value_ptr(specular));
-	glUniform1f(this->shininessUniform, 50);
+	glUniform3fv(this->specularUniform, 1, glm::value_ptr(specular));
 
-	checkGLError("Could not update uniforms");
+	checkGLError("Could not update shininess uniforms");
 }
 
 glm::mat4 NormalShaderProgram::calculateNormalMatrix(void){
@@ -123,6 +116,8 @@ void NormalShaderProgram::enableVertexAttribArray(void) {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+	glEnableVertexAttribArray(4);
 	checkGLError("Could not enable Vertex Attributes");
 }
 
@@ -131,6 +126,8 @@ void NormalShaderProgram::disableVertexAttribArray(void) {
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
+	glDisableVertexAttribArray(4);
 	checkGLError("Could not enable Vertex Attributes");
 }
 

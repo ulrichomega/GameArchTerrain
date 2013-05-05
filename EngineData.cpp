@@ -47,6 +47,7 @@ void EngineData::initializeData() {
 	EngineData::gameObjects[1]->transform.transformMatrix = glm::translate(EngineData::gameObjects[1]->transform.transformMatrix, glm::vec3(10.0f,0.0f,0.0f));
 
 	EngineData::activeLight = new Light();
+	EngineData::activeLight->transform.moveUp(10.0f);
 
 	EngineData::readSettings();
 }
@@ -63,8 +64,6 @@ void EngineData::update(double deltaT) {
 	int x, y;
 	glfwGetMousePos(&x,&y);
 	EngineData::setMousePos(x,y);
-
-	EngineData::activeLight->transform.moveForward(1.0f*deltaT);
 }
 
 //Will: Read in settings from file 

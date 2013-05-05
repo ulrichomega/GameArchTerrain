@@ -36,19 +36,16 @@ private:
 	GLuint modelMatrixUniform;
 	GLuint viewMatrixUniform;
 	GLuint projectionMatrixUniform;
-	GLuint normalMatrixUniform;
 
 	//Vertex Shader uniforms
-	GLuint LightPosUniform;
-	GLuint constAttenuationUniform;
-	GLuint linearAttenUniform;
-	GLuint quadraticAttenUniform;
+	GLuint lightPosUniform;
 
 	//Fragment Shader uniforms
+	GLuint lightColorUniform;
+	GLuint lightBrightnessUniform;
 	GLuint ambientUniform;
 	GLuint diffuseUniform;
 	GLuint specularUniform;
-	GLuint shininessUniform;
 
 	void linkProgram(void);
 	void linkVertexAttributes(void);

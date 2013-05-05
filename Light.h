@@ -20,5 +20,7 @@ public:
 	~Light(void);
 
 	void update(double deltaT);
+	glm::vec3 color;
+	float brightness;
 };
 

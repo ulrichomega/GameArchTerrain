@@ -222,6 +222,8 @@ void Mesh::loadOBJ(std::string fileName) {
 					{vertices[vertNum][0],vertices[vertNum][1],vertices[vertNum][2]}, //Position
 					{uvs[uvNum][0],uvs[uvNum][1]}, //UV
 					{normals[normalNum][0],normals[normalNum][1],normals[normalNum][2]},	//Normal
+					{0.0f,0.0f,0.0f},
+					{0.0f,0.0f,0.0f}
 				};
 
 				bool matchFound = false;
@@ -242,8 +244,7 @@ void Mesh::loadOBJ(std::string fileName) {
 		}
 
 	}
-	//Not currently using tangents and bitangents in this math
-	//this->calculateTangents();
+	this->calculateTangents();
 
 	//The below code is preserved in memoriam of 9 hours spent trying to fix a typo
 
