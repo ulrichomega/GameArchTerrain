@@ -12,6 +12,8 @@ struct vertex {
 	GLfloat position[3];
     GLfloat uvPos[2];
     GLfloat normal[3];
+	GLfloat tangent[3];
+	GLfloat bitangent[3];
 	bool operator==(const vertex that) const{
 		return memcmp((void*)this, (void*)&that, sizeof(vertex))==0;
 	};

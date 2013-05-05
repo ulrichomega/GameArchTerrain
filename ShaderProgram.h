@@ -46,6 +46,16 @@ protected:
 		*/
 	virtual void updateUniforms(void) = 0;
 
+		/*Program must:
+			Enable all vertexAttribArray bindings
+		*/
+	virtual void enableVertexAttribArray(void) = 0;
+
+		/*Program must:
+			Enable all vertexAttribArray bindings
+		*/
+	virtual void disableVertexAttribArray(void) = 0;
+
 	Mesh* owner;
 
 	GLuint programID;

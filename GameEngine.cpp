@@ -45,14 +45,14 @@ void GameEngine::update() {
 	EngineData::update(EngineData::getDeltaTime());
 	EngineData::getActiveCamera()->update(EngineData::getDeltaTime());
 
-	for (int i=0; i<EngineData::getGameObjects()->size(); i++) {
+	for (unsigned int i=0; i<EngineData::getGameObjects()->size(); i++) {
 		EngineData::getGameObjects()->at(i)->update(EngineData::getDeltaTime());
 	}
 }
 
 void GameEngine::draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for (int i = 0; i < EngineData::getMeshesToDraw()->size(); i++) {
+	for (unsigned int i = 0; i < EngineData::getMeshesToDraw()->size(); i++) {
 		EngineData::getMeshesToDraw()->at(i)->draw();
 	}
 

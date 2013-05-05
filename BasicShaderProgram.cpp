@@ -10,8 +10,8 @@ BasicShaderProgram::BasicShaderProgram(void)
 {
 }
 
-BasicShaderProgram::BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader)
-	: ShaderProgram(newOwner, fragmentShader, vertexShader)
+BasicShaderProgram::BasicShaderProgram(Mesh* newOwner)
+	: ShaderProgram(newOwner, "basic.fs", "basic.vs")
 {
 	this->linkProgram();
 }
@@ -66,11 +66,20 @@ void BasicShaderProgram::updateUniforms(void) {
 	checkGLError("Could not update uniforms2");
 	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	checkGLError("Could not update uniforms3");
+}
 
-	
+void BasicShaderProgram::enableVertexAttribArray(void) {
 	//Active the vertex attributes
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	checkGLError("Could not enable Vertex Attributes");
+}
+
+void BasicShaderProgram::disableVertexAttribArray(void) {
+	//Active the vertex attributes
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 	checkGLError("Could not enable Vertex Attributes");
 }

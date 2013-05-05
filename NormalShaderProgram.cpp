@@ -10,8 +10,8 @@ NormalShaderProgram::NormalShaderProgram(void)
 {
 }
 
-NormalShaderProgram::NormalShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader)
-	: ShaderProgram(newOwner, fragmentShader, vertexShader)
+NormalShaderProgram::NormalShaderProgram(Mesh* newOwner)
+	: ShaderProgram(newOwner, "normalMap.fs", "normalMap.vs")
 {
 	this->linkProgram();
 }
@@ -27,6 +27,8 @@ void NormalShaderProgram::linkProgram(void) {
 	glBindAttribLocation( this->programID, 0, "in_Position");
 	glBindAttribLocation( this->programID, 1, "in_Tex");
 	glBindAttribLocation( this->programID, 2, "in_Normal");
+	glBindAttribLocation( this->programID, 3, "in_Tangent");
+	glBindAttribLocation( this->programID, 4, "in_Bitangent");
 	checkGLError( "Could not bind vertex Attribute Locations");
 
 	//Link the uniform variables
@@ -46,12 +48,16 @@ void NormalShaderProgram::linkVertexAttributes() {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+	glEnableVertexAttribArray(4);
 	checkGLError("Could not enable Vertex Attributes");
 	
 	//Set the attribute offsets
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(sizeof(float)*3));
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(sizeof(float)*3+sizeof(float)*2));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, position));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, uvPos));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, normal));
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, tangent));
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)offsetof(vertex, bitangent));
 	checkGLError("Could not set the Vertex Attribute");
 }
 
@@ -66,11 +72,24 @@ void NormalShaderProgram::updateUniforms(void) {
 	checkGLError("Could not update uniforms2");
 	glUniformMatrix4fv(this->projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	checkGLError("Could not update uniforms3");
+}
 
-	
+void NormalShaderProgram::enableVertexAttribArray(void) {
 	//Active the vertex attributes
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+	glEnableVertexAttribArray(4);
+	checkGLError("Could not enable Vertex Attributes");
+}
+
+void NormalShaderProgram::disableVertexAttribArray(void) {
+	//Active the vertex attributes
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
+	glDisableVertexAttribArray(4);
 	checkGLError("Could not enable Vertex Attributes");
 }

@@ -21,7 +21,7 @@ class BasicShaderProgram : public ShaderProgram
 public:
 	friend class Mesh;
 	BasicShaderProgram(void);
-	BasicShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
+	BasicShaderProgram(Mesh* newOwner);
 	~BasicShaderProgram(void);
 
 protected:
@@ -36,5 +36,7 @@ private:
 
 	void linkProgram(void);
 	void linkVertexAttributes(void);
+	void enableVertexAttribArray(void);
+	void disableVertexAttribArray(void);
 };
 

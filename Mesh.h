@@ -19,7 +19,7 @@
 
 //In-Project
 class GameObject;
-class BasicShaderProgram;
+class ShaderProgram;
 class Transform;
 #include "vertex.h"
 
@@ -48,7 +48,7 @@ protected:
 	
 private:
 	GameObject* owner;
-	BasicShaderProgram* shader;
+	ShaderProgram* shader;
 
 	GLuint vertexArrayID;
 	GLuint vertexBufferID;
@@ -63,6 +63,7 @@ private:
 	void createShader();
 	void createBuffers();
 	void createTexture(std::string filename);
+	void calculateTangents();
 	
 };
 

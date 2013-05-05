@@ -3,6 +3,7 @@
 #include "EngineData.h"
 #include "GameObject.h"
 #include "BasicShaderProgram.h"
+#include "NormalShaderProgram.h"
 #include "UtilityFunctions.h"
 
 Mesh::Mesh(void) 
@@ -27,39 +28,42 @@ void Mesh::draw() {
 	glUseProgram(this->shader->programID);
 	checkGLError("Could not use shader program");
 	
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndexID);
+	//Bind all buffers and textures
 	glBindVertexArray(this->vertexArrayID);
 	glBindBuffer(GL_ARRAY_BUFFER,this->vertexBufferID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->vertexIndexID);
+	glBindTexture(GL_TEXTURE_2D, this->textureID);
 	checkGLError("Could not bind buffers to be active");
 
 	this->shader->updateUniforms();
+	this->shader->enableVertexAttribArray();
 
 	glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, (GLvoid*)0);
 	checkGLError("Could not draw mesh");
 	std::cout << "Finished drawing a mesh" << std::endl;
 
 	//Unbind program and buffer
+	this->shader->disableVertexAttribArray();
 	glUseProgram(0);
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Mesh::createMesh() {
 	//Currently hardcoded for testing purposes;
 	this->loadOBJ("data/container.obj");
+	//Note: createTexture will eventually be used by loadOBJ, but today is not that day
+	this->createTexture("data/container_diffuse.tga");
 
 	this->createShader();
 
 	this->createBuffers();
-
-	//Note: createTexture will eventually be used by loadOBJ, but today is not that day
-	this->createTexture("data/container_diffuse.tga");
 }
 void Mesh::createShader() {
 	//Note: This mesh currently is hard-coded to use the basic shaders
-	this->shader = new BasicShaderProgram(this,"basic.fs","basic.vs");
+	this->shader = new NormalShaderProgram(this);
 }
 //Creates the Vertex Array Object, and Vertex Buffer Objects for the mesh
 void Mesh::createBuffers() {
@@ -111,6 +115,7 @@ void Mesh::createTexture(std::string filename) {
 	}
 	glGenerateMipmap(GL_TEXTURE_2D);
 	checkGLError("Could not generate mipmaps");
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 //Loads an OBJ file into this mesh
@@ -177,10 +182,12 @@ void Mesh::loadOBJ(std::string fileName) {
 				uvNum--;
 				normalNum--;
 
-				vertex tempVert = { 
+				vertex tempVert = {
 					{vertices[vertNum][0],vertices[vertNum][1],vertices[vertNum][2]}, //Position
 					{uvs[uvNum][0],uvs[uvNum][1]}, //UV
-					{normals[normalNum][0],normals[normalNum][1],normals[normalNum][2]}	//Normal
+					{normals[normalNum][0],normals[normalNum][1],normals[normalNum][2]},	//Normal
+					{0.0f,0.0f,0.0f},
+					{0.0f,0.0f,0.0f}
 				};
 
 				bool matchFound = false;
@@ -201,6 +208,7 @@ void Mesh::loadOBJ(std::string fileName) {
 		}
 
 	}
+	this->calculateTangents();
 
 	//The below code is preserved in memoriam of 9 hours spent trying to fix a typo
 
@@ -274,4 +282,43 @@ void Mesh::loadOBJ(std::string fileName) {
 
 Transform* Mesh::getTransform() {
 	return &this->owner->transform;
+}
+
+//Math below from: http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
+void Mesh::calculateTangents() {
+	for (unsigned int i=0; i<this->vertices.size()-3; i+=3){
+		// Shortcuts for vertices
+		glm::vec3 & v0 = glm::vec3(this->vertices[i+0].position[0],this->vertices[i+0].position[1],this->vertices[i+0].position[2]);
+		glm::vec3 & v1 = glm::vec3(this->vertices[i+1].position[0],this->vertices[i+1].position[1],this->vertices[i+1].position[2]);
+		glm::vec3 & v2 = glm::vec3(this->vertices[i+2].position[0],this->vertices[i+2].position[1],this->vertices[i+2].position[2]);
+ 
+		// Shortcuts for UVs
+		glm::vec2 & uv0 = glm::vec2(this->vertices[i+0].uvPos[0],this->vertices[i+0].uvPos[1]);
+		glm::vec2 & uv1 = glm::vec2(this->vertices[i+1].uvPos[0],this->vertices[i+1].uvPos[1]);
+		glm::vec2 & uv2 = glm::vec2(this->vertices[i+2].uvPos[0],this->vertices[i+2].uvPos[1]);
+ 
+		// Edges of the triangle : postion delta
+		glm::vec3 deltaPos1 = v1-v0;
+		glm::vec3 deltaPos2 = v2-v0;
+ 
+		// UV delta
+		glm::vec2 deltaUV1 = uv1-uv0;
+		glm::vec2 deltaUV2 = uv2-uv0;
+
+		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+		glm::vec3 tangent = (deltaPos1 * deltaUV2.y   - deltaPos2 * deltaUV1.y)*r;
+		glm::vec3 bitangent = (deltaPos2 * deltaUV1.x   - deltaPos1 * deltaUV2.x)*r;
+
+		//this->vertices[i+0].tangent = {tangent.x,tangent.y,tangent.z};
+		//Assign the calculated tangent and bitangents to the three vertices
+		for (unsigned int j=0; j<3; j++) {
+			this->vertices[i+j].tangent[0] = (GLfloat)tangent[0];
+			this->vertices[i+j].tangent[1] = (GLfloat)tangent[1];
+			this->vertices[i+j].tangent[2] = (GLfloat)tangent[2];
+			
+			this->vertices[i+j].bitangent[0] = (GLfloat)bitangent[0];
+			this->vertices[i+j].bitangent[1] = (GLfloat)bitangent[1];
+			this->vertices[i+j].bitangent[2] = (GLfloat)bitangent[2];
+		}
+	}
 }

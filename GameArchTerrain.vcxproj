@@ -51,8 +51,12 @@
     </None>
     <None Include="glew32.dll" />
     <None Include="GLFW.dll" />
-    <None Include="normalMap.fs" />
-    <None Include="normalMap.vs" />
+    <None Include="normalMap.fs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="normalMap.vs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E5AD12CA-387E-4ECD-A7C5-9FB6C1DB4E87}</ProjectGuid>

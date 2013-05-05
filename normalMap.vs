@@ -3,8 +3,8 @@
 in vec3 in_Position;
 in vec2 in_Tex;
 in vec3 in_Normal;
-in vec3 tangent
-in vec3 bitangent
+in vec3 in_Tangent;
+in vec3 in_Bitangent;
 
 uniform mat4 ModelMatrix;
 uniform mat4 ViewMatrix;
