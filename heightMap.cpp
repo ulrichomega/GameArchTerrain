@@ -47,7 +47,7 @@ void heightMap::createVertices(std::string heightMapFilename) {
 						{0.0f,1.0f,0.0f},		//Normals
 						{0.0f,0.0f,0.0f},		//Tangent
 						{0.0f,0.0f,0.0f},		//Bitangent
-						{r/255,b/255,g/255}		//Color
+						{r/255,g/255,b/255}		//Color
 			};
 			this->vertices.push_back(temp);
 		}

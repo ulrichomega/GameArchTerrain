@@ -41,8 +41,8 @@ void ColorShaderProgram::linkProgram(void){
 	
 	//Bind the in-variables to vertex attribute indexes
 	glBindAttribLocation( this->programID, 0, "in_Position");
-	glBindAttribLocation( this->programID, 1, "in_Tex");
-	glBindAttribLocation( this->programID, 2, "in_Color");
+	glBindAttribLocation( this->programID, 1, "in_Color");
+	glBindAttribLocation( this->programID, 2, "in_Normal");
 	checkGLError( "Could not bind vertex Attribute Locations");
 
 	//Link the uniform variables
