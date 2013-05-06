@@ -7,6 +7,7 @@
 //Math Library
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 //Standard Library
@@ -20,7 +21,7 @@ class Transform
 public:
 	Transform(void);
 	~Transform(void);
-	
+
 	glm::mat4 transformMatrix;
 
 	//Preserved for possible future implementation.

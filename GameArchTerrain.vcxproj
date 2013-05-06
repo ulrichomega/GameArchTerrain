@@ -25,6 +25,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="NormalShaderProgram.cpp" />
     <ClCompile Include="PlainGameObject.cpp" />
+    <ClCompile Include="quaternion.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Skybox.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="NormalShaderProgram.h" />
     <ClInclude Include="PlainGameObject.h" />
+    <ClInclude Include="quaternion.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Skybox.h" />
