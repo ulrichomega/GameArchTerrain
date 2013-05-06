@@ -7,7 +7,7 @@ Skybox::Skybox(void)
 }
 Skybox::Skybox(std::string textureNameBase) {
 	this->mesh = new CubeMap(this, textureNameBase);
-	this->transform.scale(100);
+	this->transform.scale(1000);
 }
 
 Skybox::~Skybox(void)

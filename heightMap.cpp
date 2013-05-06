@@ -30,6 +30,7 @@ void heightMap::createMesh(std::string heightMapFilename){
 }
 
 void heightMap::createVertices(std::string heightMapFilename) {
+	//Note: See issue
 	GLFWimage imageData;
 	if (GL_FALSE == glfwReadImage("data/Starfield.tga",&imageData,0)){
 		exit(EXIT_FAILURE);
@@ -37,19 +38,31 @@ void heightMap::createVertices(std::string heightMapFilename) {
 	
 	for(unsigned int x=0; x<this->xSize; x++) {
 		for(unsigned int y=0; y<this->ySize; y++) {
-			float r = imageData.Data[x*imageData.BytesPerPixel + y*imageData.BytesPerPixel + 0];
-			float g = imageData.Data[x*imageData.BytesPerPixel + y*imageData.BytesPerPixel + 1];
-			float b = imageData.Data[x*imageData.BytesPerPixel + y*imageData.BytesPerPixel + 2];
-
-			float average = (r+g+b)/3.0f;
-			vertex temp = {{x-this->xSize/2,average,y-this->ySize/2},	//position
-						{0.0f,1.0f},		//UV
-						{0.0f,1.0f,0.0f},		//Normals
-						{0.0f,0.0f,0.0f},		//Tangent
-						{0.0f,0.0f,0.0f},		//Bitangent
-						{r/255,g/255,b/255}		//Color
-			};
-			this->vertices.push_back(temp);
+			float r = imageData.Data[x*imageData.BytesPerPixel + y*imageData.BytesPerPixel*imageData.Height + 0];
+			float g = imageData.Data[x*imageData.BytesPerPixel + y*imageData.BytesPerPixel*imageData.Height + 1];
+			float b = imageData.Data[x*imageData.BytesPerPixel + y*imageData.BytesPerPixel*imageData.Height + 2];
+			
+			//Current bug where edge-vertices will create infinite-edges
+			if (x!=0 && y!=0 && x!=this->xSize-1 && y!=this->ySize-1){
+				vertex temp = {{x-this->xSize/2,findnoise2(x,y),y-this->ySize/2},	//position
+							{0.0f,1.0f},		//UV
+							{0.0f,1.0f,0.0f},		//Normals
+							{0.0f,0.0f,0.0f},		//Tangent
+							{0.0f,0.0f,0.0f},		//Bitangent
+							{r/255.0f*2.0,g/255.0f*2.0,b/255.0f*2.0}		//Color
+				};
+				this->vertices.push_back(temp);
+			}
+			else {
+				vertex temp = {{x-this->xSize/2,0.0f,y-this->ySize/2},	//position
+							{0.0f,1.0f},		//UV
+							{0.0f,1.0f,0.0f},		//Normals
+							{0.0f,0.0f,0.0f},		//Tangent
+							{0.0f,0.0f,0.0f},		//Bitangent
+							{r/255.0f*2.0,g/255.0f*2.0,b/255.0f*2.0}		//Color
+				};
+				this->vertices.push_back(temp);
+			}
 		}
 	}
 	
@@ -57,14 +70,14 @@ void heightMap::createVertices(std::string heightMapFilename) {
 		for(unsigned int y=0; y<this->ySize-1; y++) {
 			//Construct square with lowerleft corner at x,y (more efficient triangle storage methods coming soon)
 			//Triangle 1
-			this->vertexIndices.push_back(x+y*this->ySize);
-			this->vertexIndices.push_back(x+1+y*this->ySize);
-			this->vertexIndices.push_back(x+(y+1)*this->ySize);
+			this->vertexIndices.push_back(x*this->ySize+y);
+			this->vertexIndices.push_back((x+1)*this->ySize+y);
+			this->vertexIndices.push_back(x*this->ySize+y+1);
 
 			//Triangle 2 
-			this->vertexIndices.push_back(x+1+(y+1)*this->ySize);
-			this->vertexIndices.push_back(x+1+y*this->ySize);
-			this->vertexIndices.push_back(x+(y+1)*this->ySize);
+			this->vertexIndices.push_back((x+1)*this->ySize+y+1);
+			this->vertexIndices.push_back((x+1)*this->ySize+y);
+			this->vertexIndices.push_back(x*this->ySize+y+1);
 		}
 	}
 	glfwFreeImage(&imageData);

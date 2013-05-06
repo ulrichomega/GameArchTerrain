@@ -13,3 +13,4 @@
 #include <iostream>
 
 void checkGLError(std::string errorString);
+double findnoise2(double x, double y);
