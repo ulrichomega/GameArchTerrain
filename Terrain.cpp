@@ -5,8 +5,8 @@
 Terrain::Terrain(void)
 {
 	this->mesh = new heightMap(this, "THIS ISN'T BEING USED RIGHT NOW");
-	this->transform.moveForward(-this->mesh->ySize/2.0f);
-	this->transform.moveSide(-this->mesh->xSize/2.0f);
+	this->transform.moveForward(-this->mesh->ySize/4.0f);
+	this->transform.moveSide(-this->mesh->xSize/4.0f);
 }
 
 

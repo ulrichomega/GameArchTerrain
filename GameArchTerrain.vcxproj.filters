@@ -93,9 +93,6 @@
     <ClCompile Include="PlainGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="quaternion.cpp">
-      <Filter>Source Files\GameObjectComponents</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew.h">
@@ -157,9 +154,6 @@
     </ClInclude>
     <ClInclude Include="PlainGameObject.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="quaternion.h">
-      <Filter>Header Files\GameObjectComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
