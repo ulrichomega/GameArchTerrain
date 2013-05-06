@@ -54,5 +54,6 @@ private:
 	void createBottomVertices();
 	void createBackVertices();
 	void createFrontVertices();
+	void compileSideVerts();
 };
 

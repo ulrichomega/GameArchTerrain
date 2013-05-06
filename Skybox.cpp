@@ -7,9 +7,8 @@ Skybox::Skybox(void)
 }
 Skybox::Skybox(std::string textureNameBase) {
 	this->mesh = new CubeMap(this, textureNameBase);
-	this->transform.scale(10);
+	this->transform.scale(100);
 }
-
 
 Skybox::~Skybox(void)
 {
@@ -20,5 +19,4 @@ void Skybox::update(double deltaT) {
 }
 void Skybox::draw(){
 	this->mesh->draw();
-	std::cout << "I drew the skybox!" << std::endl;
 }

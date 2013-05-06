@@ -37,8 +37,18 @@ void CubeMap::createMesh(std::string textureNameBase) {
 
 	this->createShader();
 	this->createBuffers();
+	//int* temp = new int[this->vertexIndices.size()];
+	//glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID);
+	//glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(int)*this->vertexIndices.size(), temp);
+	//for (int j = 0; j<this->vertexIndices.size(); j++) {
+	//	std::cout << "Index" << j << ": (" << temp[j] << ")" << std::endl;
+	//}
+	//delete temp;
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 void CubeMap::createVertices(){
+	this->vertices.clear();
+	this->vertexIndices.clear();
 	this->createRightVertices();
 	this->createLeftVertices();
 	this->createTopVertices();
@@ -83,17 +93,19 @@ void CubeMap::draw() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->vertexIndexID);
 	checkGLError("Could not bind buffers to be active");
 	
-	//Bind textures to gl active textures
-	glActiveTexture(GL_TEXTURE0);	//diffuse
-	glBindTexture(GL_TEXTURE_2D, this->textureID[0]);
-	this->shader->setTextureUnit(0,0);
-
 	this->shader->updateUniforms();
 	this->shader->enableVertexAttribArray();
+	//
+	//for (unsigned int i=0; i<6; i++) {
+	//	//Bind textures to gl active textures
+		glActiveTexture(GL_TEXTURE0);	//diffuse
+		glBindTexture(GL_TEXTURE_2D, this->textureID[1]);
+	//	this->shader->setTextureUnit(0,0);
 
-	glDrawElements(GL_TRIANGLES, 18/*this->vertexIndices.size()*/, GL_UNSIGNED_INT, (GLvoid*)0);
-	checkGLError("Could not draw mesh");
-
+		glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, 0);
+	//	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (GLvoid*)(i*6 + 3));
+	//	checkGLError("Could not draw mesh");
+	//}
 	//Unbind program and buffer
 	this->shader->disableVertexAttribArray();
 	glUseProgram(0);
@@ -147,13 +159,7 @@ void CubeMap::createRightVertices(){
 	};
 	this->vertices.push_back(brVertex);
 
-	this->vertexIndices.push_back(this->vertexIndices.size()-4);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	this->vertexIndices.push_back(this->vertexIndices.size()-1);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
+	this->compileSideVerts();
 }
 void CubeMap::createLeftVertices(){
 	//Topleft
@@ -189,13 +195,7 @@ void CubeMap::createLeftVertices(){
 	};
 	this->vertices.push_back(brVertex);
 
-	this->vertexIndices.push_back(this->vertexIndices.size()-4);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	this->vertexIndices.push_back(this->vertexIndices.size()-1);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
+	this->compileSideVerts();
 }
 void CubeMap::createTopVertices(){
 	//Topleft
@@ -231,13 +231,7 @@ void CubeMap::createTopVertices(){
 	};
 	this->vertices.push_back(brVertex);
 
-	this->vertexIndices.push_back(this->vertexIndices.size()-4);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	this->vertexIndices.push_back(this->vertexIndices.size()-1);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
+	this->compileSideVerts();
 	}
 void CubeMap::createBottomVertices(){
 	//Topleft
@@ -273,13 +267,7 @@ void CubeMap::createBottomVertices(){
 	};
 	this->vertices.push_back(brVertex);
 
-	this->vertexIndices.push_back(this->vertexIndices.size()-4);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	this->vertexIndices.push_back(this->vertexIndices.size()-1);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
+	this->compileSideVerts();
 }
 void CubeMap::createBackVertices(){
 	//Topleft
@@ -315,13 +303,7 @@ void CubeMap::createBackVertices(){
 	};
 	this->vertices.push_back(brVertex);
 
-	this->vertexIndices.push_back(this->vertexIndices.size()-4);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	this->vertexIndices.push_back(this->vertexIndices.size()-1);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
+	this->compileSideVerts();
 }
 void CubeMap::createFrontVertices(){
 	//Topleft
@@ -357,11 +339,28 @@ void CubeMap::createFrontVertices(){
 	};
 	this->vertices.push_back(brVertex);
 
-	this->vertexIndices.push_back(this->vertexIndices.size()-4);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
+	this->compileSideVerts();
+}
+
+void CubeMap::compileSideVerts() {
+	std::cout << "Number of verts so far: " << this->vertices.size() << std::endl;
+
+	this->vertexIndices.push_back(this->vertices.size()-4);
+	this->vertexIndices.push_back(this->vertices.size()-2);
+	this->vertexIndices.push_back(this->vertices.size()-3);
+
+	std::cout << "Added vertices indices: " << this->vertexIndices[this->vertexIndices.size()-3] << " " << this->vertexIndices[this->vertexIndices.size()-2] << " " << this->vertexIndices[this->vertexIndices.size()-1] << std::endl;
+	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-3] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[2] << ")" << std::endl;
+	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-2] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[2] << ")" << std::endl;
+	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-1] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[2] << ")" << std::endl;
+
+	this->vertexIndices.push_back(this->vertices.size()-1);
+	this->vertexIndices.push_back(this->vertices.size()-3);
+	this->vertexIndices.push_back(this->vertices.size()-2);
 	
-	this->vertexIndices.push_back(this->vertexIndices.size()-2);
-	this->vertexIndices.push_back(this->vertexIndices.size()-1);
-	this->vertexIndices.push_back(this->vertexIndices.size()-3);
+	std::cout << "Added vertices indices: " << this->vertexIndices[this->vertexIndices.size()-3] << " " << this->vertexIndices[this->vertexIndices.size()-2] << " " << this->vertexIndices[this->vertexIndices.size()-1] << std::endl;
+	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-3] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[2] << ")" << std::endl;
+	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-2] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[2] << ")" << std::endl;
+	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-1] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[2] << ")" << std::endl;
+		
 }

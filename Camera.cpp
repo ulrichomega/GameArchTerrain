@@ -5,7 +5,6 @@ Camera::Camera(void) : maxVelocity(10.0f), rotateHSpeed(10.0f), rotatePSpeed(10.
 {
 	this->ProjectionMatrix = glm::perspective(60.0f, 1.0f, 0.1f, 10000.f);
 	this->transform.moveForward(-10.0f);
-	this->transform.moveUp(5.0f);
 	this->velocity = glm::vec3(0.0f,0.0f,0.0f);
 }
 
@@ -16,8 +15,8 @@ Camera::~Camera(void)
 
 void Camera::update(double deltaT) {
 	this->updateMove(deltaT);
-	this->updateRotate(deltaT);
-//	this->transform.rotateY(10.0f*deltaT);
+//	this->updateRotate(deltaT);
+	this->transform.rotateY(30.0f*deltaT);
 }
 
 void Camera::draw() {
