@@ -343,24 +343,24 @@ void CubeMap::createFrontVertices(){
 }
 
 void CubeMap::compileSideVerts() {
-	std::cout << "Number of verts so far: " << this->vertices.size() << std::endl;
+	//std::cout << "Number of verts so far: " << this->vertices.size() << std::endl;
 
 	this->vertexIndices.push_back(this->vertices.size()-4);
 	this->vertexIndices.push_back(this->vertices.size()-2);
 	this->vertexIndices.push_back(this->vertices.size()-3);
 
-	std::cout << "Added vertices indices: " << this->vertexIndices[this->vertexIndices.size()-3] << " " << this->vertexIndices[this->vertexIndices.size()-2] << " " << this->vertexIndices[this->vertexIndices.size()-1] << std::endl;
-	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-3] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[2] << ")" << std::endl;
-	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-2] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[2] << ")" << std::endl;
-	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-1] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[2] << ")" << std::endl;
+	//std::cout << "Added vertices indices: " << this->vertexIndices[this->vertexIndices.size()-3] << " " << this->vertexIndices[this->vertexIndices.size()-2] << " " << this->vertexIndices[this->vertexIndices.size()-1] << std::endl;
+	//std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-3] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[2] << ")" << std::endl;
+	//std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-2] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[2] << ")" << std::endl;
+	//std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-1] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[2] << ")" << std::endl;
 
 	this->vertexIndices.push_back(this->vertices.size()-1);
 	this->vertexIndices.push_back(this->vertices.size()-3);
 	this->vertexIndices.push_back(this->vertices.size()-2);
-	
-	std::cout << "Added vertices indices: " << this->vertexIndices[this->vertexIndices.size()-3] << " " << this->vertexIndices[this->vertexIndices.size()-2] << " " << this->vertexIndices[this->vertexIndices.size()-1] << std::endl;
-	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-3] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[2] << ")" << std::endl;
-	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-2] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[2] << ")" << std::endl;
-	std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-1] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[2] << ")" << std::endl;
-		
+	//
+	//std::cout << "Added vertices indices: " << this->vertexIndices[this->vertexIndices.size()-3] << " " << this->vertexIndices[this->vertexIndices.size()-2] << " " << this->vertexIndices[this->vertexIndices.size()-1] << std::endl;
+	//std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-3] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-3]].position[2] << ")" << std::endl;
+	//std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-2] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-2]].position[2] << ")" << std::endl;
+	//std::cout << "Index" << this->vertexIndices[this->vertexIndices.size()-1] << ": (" << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[0] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[1] << "," << this->vertices[this->vertexIndices[this->vertexIndices.size()-1]].position[2] << ")" << std::endl;
+	//	
 }

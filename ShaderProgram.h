@@ -21,6 +21,7 @@ class ShaderProgram
 public:
 	friend class Mesh;
 	friend class CubeMap;
+	friend class heightMap;
 	ShaderProgram(void);
 	ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~ShaderProgram(void);

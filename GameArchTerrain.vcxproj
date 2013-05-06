@@ -13,15 +13,18 @@
   <ItemGroup>
     <ClCompile Include="BasicShaderProgram.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ColorShaderProgram.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="EngineData.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glew.c" />
+    <ClCompile Include="heightMap.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="NormalShaderProgram.cpp" />
+    <ClCompile Include="PlainGameObject.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Skybox.cpp" />
@@ -32,14 +35,17 @@
   <ItemGroup>
     <ClInclude Include="BasicShaderProgram.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ColorShaderProgram.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="EngineData.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="glew.h" />
+    <ClInclude Include="heightMap.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="NormalShaderProgram.h" />
+    <ClInclude Include="PlainGameObject.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Skybox.h" />
@@ -53,6 +59,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="basic.vs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="color.fs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="color.vs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="glew32.dll" />

@@ -15,18 +15,19 @@
 //In-Project
 //class Terrain;
 #include "GameObject.h"
-class heightMap;
+class Mesh;
 
-class Terrain : public GameObject
+class PlainGameObject :
+	public GameObject
 {
 public:
-	Terrain(void);
-	~Terrain(void);
-
+	PlainGameObject(void);
+	PlainGameObject(std::string objFile, std::string diffuseFile, std::string normalFile);
+	~PlainGameObject(void);
+	
 	void update(double deltaT);
 	void draw();
-
-private: 
-	heightMap* mesh;
+private:
+	Mesh* mesh;
 };
 

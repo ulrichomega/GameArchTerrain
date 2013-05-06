@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Terrain.h"
+#include "PlainGameObject.h"
 #include "Light.h"
 #include "Skybox.h"
 
@@ -42,11 +43,13 @@ void EngineData::initializeData() {
 	pastTime = currentTime-deltaTime;
 
 	EngineData::activeCamera = new Camera();
-	EngineData::gameObjects.push_back(new Terrain());
-	EngineData::gameObjects.push_back(new Terrain());
+	EngineData::gameObjects.push_back(new PlainGameObject());
+	EngineData::gameObjects.push_back(new PlainGameObject());
 
 	EngineData::gameObjects[1]->transform.moveSide(10.0f);
 	EngineData::gameObjects.push_back(new Skybox("data/sky"));
+
+	EngineData::gameObjects.push_back(new Terrain());
 
 	EngineData::activeLight = new Light();
 	EngineData::activeLight->transform.moveUp(10.0f);

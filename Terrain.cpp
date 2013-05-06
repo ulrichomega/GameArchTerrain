@@ -1,10 +1,10 @@
 #include "Terrain.h"
 
-#include "Mesh.h"
+#include "HeightMap.h"
 
 Terrain::Terrain(void)
 {
-	this->mesh = new Mesh(this);
+	this->mesh = new heightMap(this, "THIS ISN'T BEING USED RIGHT NOW");
 }
 
 

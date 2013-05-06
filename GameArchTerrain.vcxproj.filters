@@ -82,6 +82,15 @@
       <Filter>Source Files\GameObjectComponents</Filter>
     </ClCompile>
     <ClCompile Include="CubeMap.cpp">
+      <Filter>Source Files\GameObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="heightMap.cpp">
+      <Filter>Source Files\GameObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorShaderProgram.cpp">
+      <Filter>Source Files\ShaderPrograms</Filter>
+    </ClCompile>
+    <ClCompile Include="PlainGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,6 +144,15 @@
       <Filter>Header Files\GameObjectComponents</Filter>
     </ClInclude>
     <ClInclude Include="CubeMap.h">
+      <Filter>Header Files\GameObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="heightMap.h">
+      <Filter>Header Files\GameObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorShaderProgram.h">
+      <Filter>Header Files\ShaderPrograms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlainGameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,6 +173,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="normalmapPoint.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="color.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="color.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -46,6 +46,7 @@ public:
 	friend class ShaderProgram;
 	friend class BasicShaderProgram;
 	friend class NormalShaderProgram;
+	friend class ColorShaderProgram;
 
 	void reverseNormals();
 

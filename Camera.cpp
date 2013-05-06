@@ -5,6 +5,7 @@ Camera::Camera(void) : maxVelocity(10.0f), rotateHSpeed(10.0f), rotatePSpeed(10.
 {
 	this->ProjectionMatrix = glm::perspective(60.0f, 1.0f, 0.1f, 10000.f);
 	this->transform.moveForward(-10.0f);
+	this->transform.moveUp(-50);
 	this->velocity = glm::vec3(0.0f,0.0f,0.0f);
 }
 

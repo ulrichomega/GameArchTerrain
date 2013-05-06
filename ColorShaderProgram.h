@@ -15,41 +15,27 @@
 //In-Project
 #include "ShaderProgram.h"
 
-class NormalShaderProgram : 
+class ColorShaderProgram :
 	public ShaderProgram
 {
 public:
 	friend class Mesh;
-	NormalShaderProgram(void);
-	NormalShaderProgram(Mesh* newOwner);
-	~NormalShaderProgram(void);
-	
+	ColorShaderProgram(void);
+	ColorShaderProgram(Mesh* newOwner);
+	~ColorShaderProgram(void);
+		
 	void setTextureUnit(int typeOfTexture, int texUnit);
-
 protected:
 	void updateUniforms(void);
-	GLuint samplerUniform;
-	GLuint normalMapUniform;
 
 private:
-	//Uniform matrix locations
+	//Uniform locations
 	GLuint modelMatrixUniform;
 	GLuint viewMatrixUniform;
 	GLuint projectionMatrixUniform;
 
-	//Vertex Shader uniforms
-	GLuint lightPosUniform;
-
-	//Fragment Shader uniforms
-	GLuint lightColorUniform;
-	GLuint lightBrightnessUniform;
-	GLuint ambientUniform;
-	GLuint diffuseUniform;
-	GLuint specularUniform;
-
 	void linkProgram(void);
 	void linkVertexAttributes(void);
-	glm::mat4 calculateNormalMatrix(void);
 	void enableVertexAttribArray(void);
 	void disableVertexAttribArray(void);
 };
