@@ -23,6 +23,7 @@ public:
 	~GameObject(void);
 
 	virtual void update(double deltaT) = 0;
+	virtual void draw() = 0;
 	
 	Transform transform;
 

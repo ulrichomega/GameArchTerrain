@@ -15,3 +15,6 @@ Light::~Light(void)
 void Light::update(double deltaT) {
 	
 }
+void Light::draw() {
+
+}

@@ -9,20 +9,24 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//In-Project
-#include "gameobject.h"
+//Standard Library
+#include <iostream>
 
-class Light :
-	public GameObject
+//In-Project
+//class Terrain;
+#include "GameObject.h"
+class CubeMap;
+
+class Skybox : public GameObject
 {
 public:
-	Light(void);
-	~Light(void);
-
+	Skybox(void);
+	Skybox(std::string textureNameBase);
+	~Skybox(void);
+	
 	void update(double deltaT);
 	void draw();
-
-	glm::vec3 color;
-	float brightness;
+private: 
+	CubeMap* mesh;
 };
 

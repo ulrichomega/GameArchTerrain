@@ -20,6 +20,7 @@ class ShaderProgram
 {
 public:
 	friend class Mesh;
+	friend class CubeMap;
 	ShaderProgram(void);
 	ShaderProgram(Mesh* newOwner, std::string fragmentShader, std::string vertexShader);
 	~ShaderProgram(void);

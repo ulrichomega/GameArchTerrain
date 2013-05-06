@@ -30,6 +30,9 @@ public:
 	void setTransformMatrix(glm::mat4 transformMatrix);
 	glm::mat4* getTransformMatrix();
 
+	//Scale
+	void scale(float amount);
+
 	//Move transform in absolute coordinates
 	void moveX(float amount);
 	void moveY(float amount);

@@ -15,7 +15,12 @@ void Transform::setTransformMatrix(glm::mat4 transformMatrix){
 	this->transformMatrix = transformMatrix;
 }
 glm::mat4* Transform::getTransformMatrix(){
+
 	return &this->transformMatrix;
+}
+
+void Transform::scale(float amount) {
+	this->transformMatrix = glm::scale(this->transformMatrix, glm::vec3(amount,amount,amount));
 }
 
 void Transform::moveX(float amount) {
@@ -77,7 +82,6 @@ void Transform::rotateY(float amount) {
 void Transform::rotateZ(float amount) {
 	this->transformMatrix = glm::rotate(this->transformMatrix, amount, glm::vec3(0,0,1));
 }
-
 
 glm::vec3 Transform::forwardVector() {
 	return (glm::vec3)(this->transformMatrix * glm::vec4(0,0,1,0));

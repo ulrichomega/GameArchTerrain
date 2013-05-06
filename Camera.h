@@ -25,6 +25,7 @@ public:
 	glm::mat4 ProjectionMatrix;
 
 	void update(double deltaT);
+	void draw();
 
 private:
 	bool moving;

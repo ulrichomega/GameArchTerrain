@@ -2,7 +2,6 @@
 
 #include "EngineData.h"
 #include "GameObject.h"
-#include "BasicShaderProgram.h"
 #include "NormalShaderProgram.h"
 #include "UtilityFunctions.h"
 
@@ -14,13 +13,16 @@ Mesh::Mesh(GameObject* owner)
 {
 	this->owner = owner;
 	this->createMesh();
-	EngineData::addMesh(this);
+}
+
+Mesh::Mesh(GameObject* owner, std::string objFile, std::string diffuseMap, std::string normalMap) {
+	this->owner = owner;
+	this->createMesh(objFile, diffuseMap, normalMap);
 }
 
 
 Mesh::~Mesh(void)
 {
-	EngineData::removeMesh(this);
 	delete this->shader;
 }
 
@@ -47,7 +49,6 @@ void Mesh::draw() {
 
 	glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, (GLvoid*)0);
 	checkGLError("Could not draw mesh");
-	std::cout << "Finished drawing a mesh" << std::endl;
 
 	//Unbind program and buffer
 	this->shader->disableVertexAttribArray();
@@ -76,8 +77,19 @@ void Mesh::createMesh() {
 
 	this->createBuffers();
 }
+void Mesh::createMesh(std::string objFile, std::string diffuseMap, std::string normalMap) {
+	//Currently hardcoded for testing purposes;
+	this->loadOBJ(objFile);
+	//Note: createTexture will eventually be used by loadOBJ, but today is not that day
+	this->createTexture(diffuseMap);
+	this->createNormalMap(normalMap);
+
+	this->createShader();
+
+	this->createBuffers();
+}
 void Mesh::createShader() {
-	//Note: This mesh currently is hard-coded to use the basic shaders
+	//Note: This mesh currently is hard-coded to use the normal shaders
 	this->shader = new NormalShaderProgram(this);
 }
 //Creates the Vertex Array Object, and Vertex Buffer Objects for the mesh
@@ -356,5 +368,13 @@ void Mesh::calculateTangents() {
 			//this->vertices[i+j].bitangent[1] = (GLfloat)bitangent[1];
 			//this->vertices[i+j].bitangent[2] = (GLfloat)bitangent[2];
 		}
+	}
+}
+
+void Mesh::reverseNormals(){
+	for (unsigned int i=0; i<this->vertices.size(); i++) {
+		this->vertices[i].normal[0] = this->vertices[i].normal[0] * -1;
+		this->vertices[i].normal[1] = this->vertices[i].normal[1] * -1;
+		this->vertices[i].normal[2] = this->vertices[i].normal[2] * -1;
 	}
 }

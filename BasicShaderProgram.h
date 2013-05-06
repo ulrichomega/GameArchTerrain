@@ -20,6 +20,7 @@ class BasicShaderProgram : public ShaderProgram
 {
 public:
 	friend class Mesh;
+	friend class CubeMap;
 	BasicShaderProgram(void);
 	BasicShaderProgram(Mesh* newOwner);
 	~BasicShaderProgram(void);

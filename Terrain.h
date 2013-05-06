@@ -24,6 +24,7 @@ public:
 	~Terrain(void);
 
 	void update(double deltaT);
+	void draw();
 
 private: 
 	Mesh* mesh;

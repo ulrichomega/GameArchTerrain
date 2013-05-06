@@ -52,8 +52,8 @@ void GameEngine::update() {
 
 void GameEngine::draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for (unsigned int i = 0; i < EngineData::getMeshesToDraw()->size(); i++) {
-		EngineData::getMeshesToDraw()->at(i)->draw();
+	for (unsigned int i = 0; i < EngineData::getGameObjects()->size(); i++) {
+		EngineData::getGameObjects()->at(i)->draw();
 	}
 
 	glfwSwapBuffers();

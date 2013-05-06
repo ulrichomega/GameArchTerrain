@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="BasicShaderProgram.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="EngineData.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="NormalShaderProgram.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UtilityFunctions.cpp" />
@@ -30,6 +32,7 @@
   <ItemGroup>
     <ClInclude Include="BasicShaderProgram.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="EngineData.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
@@ -39,6 +42,7 @@
     <ClInclude Include="NormalShaderProgram.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UtilityFunctions.h" />

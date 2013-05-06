@@ -37,18 +37,21 @@ class Mesh
 public:
 	Mesh(void);
 	Mesh(GameObject* owner);
+	Mesh(GameObject* owner, std::string objFile, std::string diffuseMap, std::string normalMap);
 
 	~Mesh(void);
 
 	void draw();
+	//Derivatives of Mesh should declare the gameObject that is using them and the shader they are using as friends
 	friend class ShaderProgram;
-	friend class BasicShaderProgram;	//Isn't friendship inherited?
+	friend class BasicShaderProgram;
 	friend class NormalShaderProgram;
+
+	void reverseNormals();
 
 protected:
 	Transform* getTransform();
-	
-private:
+
 	GameObject* owner;
 	ShaderProgram* shader;
 
@@ -62,6 +65,7 @@ private:
 	std::vector<GLuint> vertexIndices;
 
 	void createMesh();
+	void createMesh(std::string objFile, std::string diffuseMap, std::string normalMap);
 	void loadOBJ(std::string fileName);
 	void createShader();
 	void createBuffers();

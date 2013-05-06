@@ -16,3 +16,7 @@ Terrain::~Terrain(void)
 void Terrain::update(double deltaT) {
 
 }
+
+void Terrain::draw() {
+	this->mesh->draw();
+}
